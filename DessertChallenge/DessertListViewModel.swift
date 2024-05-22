@@ -8,11 +8,13 @@
 import Foundation
 import Combine
 
+// DessertListViewModel makes the api request for dessert items upon initialization
 extension DessertListView {
     class ViewModel: ObservableObject {
         
         private var cancellable: AnyCancellable?
         @Published var desserts: [Dessert] = []
+        @Published var showTopBar = true
         
         init() {
             getDesserts()

@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 
+// Loads image from the url and sets title of dessert
 
 extension DessertListItemView {
     

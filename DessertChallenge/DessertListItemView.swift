@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+// Presents a dessert item with both an image and title
+
 struct DessertListItemView: View {
     
     @ObservedObject var viewModel: ViewModel
@@ -15,8 +17,8 @@ struct DessertListItemView: View {
         HStack() {
             if (viewModel.loadedImage != nil) {
                 Image(uiImage: viewModel.loadedImage!).resizable()
-                .frame(width: 50, height: 50)
-                .clipShape(Rectangle())
+                    .frame(width: 50, height: 50)
+                    .clipShape(Rectangle())
             }
             else { //placeholder while loading in or if errors
                 ProgressView().frame(width: 50, height: 50)

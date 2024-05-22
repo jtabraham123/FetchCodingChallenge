@@ -22,4 +22,7 @@ struct Dessert: Codable, Identifiable {
 
 struct DessertResponse: Codable {
     let meals: [Dessert]
+    enum CodingKeys: String, CodingKey {
+            case meals = "meals"
+        }
 }

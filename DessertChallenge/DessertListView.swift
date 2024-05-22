@@ -9,15 +9,35 @@ import SwiftUI
 
 struct DessertListView: View {
     
-    @StateObject private var viewModel  = ViewModel()
+    @ObservedObject private var viewModel  = ViewModel()
     
     
     var body: some View {
-        List(viewModel.desserts) { dessert in
-            DessertListItemView(viewModel: DessertListItemView.ViewModel(urlString: dessert.thumbnail, dessertTitle: dessert.name))
+        VStack(spacing: 0) {
+            if (viewModel.showTopBar) {
+                TopBarView()
+                Spacer()
+            }
+            NavigationStack {
+                List(viewModel.desserts) { dessert in
+                    let dessertListItemViewModel = DessertListItemView.ViewModel(urlString: dessert.thumbnail, dessertTitle: dessert.name)
+                    let dessertDetailViewModel = DessertDetailView.ViewModel(id: dessert.id)
+                    let dessertDetailView = DessertDetailView(listItemViewModel: dessertListItemViewModel, viewModel: dessertDetailViewModel).onAppear {
+                        dessertDetailViewModel.fetchRecipe()
+                        viewModel.showTopBar = false
+                    }
+                    NavigationLink(destination: dessertDetailView) {
+                        DessertListItemView(viewModel: dessertListItemViewModel)
+                        }
+                    }.onAppear {
+                        viewModel.showTopBar = true
+                    }
+                }
+            }
         }
     }
-}
+
+
 
 #Preview {
     DessertListView()
