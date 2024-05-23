@@ -34,7 +34,6 @@ extension DessertDetailView {
         func fetchRecipe() {
             var urlString = "https://themealdb.com/api/json/v1/1/lookup.php?i="
             urlString.append(id)
-            print(urlString)
             
             guard let url = URL(string: urlString) else {
                 return
@@ -67,7 +66,6 @@ extension DessertDetailView {
             var ingredients: [String] = []
             var instructions: [String] = []
             do {
-                print(id)
                 if let jsonObject = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
                     if let meals = jsonObject["meals"] as? [[String: Any]] {
                         if let ins = meals[0]["strInstructions"] as? String {

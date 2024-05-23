@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-// DessertListViewModel makes the api request for dessert items upon initialization and upon retry button click
+// DessertListViewModel makes the api request for dessert items upon initialization
 extension DessertListView {
     class ViewModel: ObservableObject {
         
@@ -34,7 +34,7 @@ extension DessertListView {
             cancellable = URLSession.shared.dataTaskPublisher(for: url)
                     .map { $0.data }
                     .decode(type: DessertResponse.self, decoder: JSONDecoder())
-                    .map { $0.meals }
+                    .map { $0.meals.sorted { $0.name.localizedCaseInsensitiveCompare($1.name) == .orderedAscending } }
                     .receive(on: DispatchQueue.main)
                     .catch { error -> Just<[Dessert]> in
                             print("Network request failed with error: \(error)")
