@@ -9,10 +9,8 @@ import SwiftUI
 
 struct DessertDetailView: View {
     
-    /* To have the image and name show up in the detail view, I chose to pass in listItemViewModel
-     here and observe listItemViewModel from this view for simplicity, though a less
-     coupled approach would be to have DessertDetailView view model (this view's view model)
-     observe DessertListItemView view model for image updates and to access the dessert name
+    /* Detail view for the dessert item, contains image, title, recipe information
+     if the network request fails, there is an error screen that allows you to retry
      */
     
     @ObservedObject var listItemViewModel: DessertListItemView.ViewModel

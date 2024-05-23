@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+
+// Main view, consists of top bar and List of desserts views
 struct DessertMainView: View {
     var body: some View {
         let topBarViewModel = TopBarView.ViewModel()

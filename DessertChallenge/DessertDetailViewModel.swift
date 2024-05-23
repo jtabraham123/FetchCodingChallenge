@@ -9,6 +9,10 @@ import Foundation
 
 extension DessertDetailView {
     
+    /* DessertDetailViewModel makes the network request and decodes the json with its custom
+     decoding function. I thought it was easier to just write the decoding function here than
+     using combine framework like earlier
+    */
     class ViewModel: ObservableObject {
         let id: String
         @Published var dessertRecipe: DessertRecipe? = nil

@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-// DessertListViewModel makes the api request for dessert items upon initialization
+// DessertListViewModel makes the api request for dessert items upon initialization and upon retry button click
 extension DessertListView {
     class ViewModel: ObservableObject {
         
