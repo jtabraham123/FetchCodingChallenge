@@ -22,6 +22,8 @@
 		46D339402BFD32CA0095A930 /* DessertAPIModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46D3393F2BFD32CA0095A930 /* DessertAPIModels.swift */; };
 		46D339462BFDA8610095A930 /* DessertListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46D339452BFDA8610095A930 /* DessertListView.swift */; };
 		46D339482BFDA8780095A930 /* DessertListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46D339472BFDA8780095A930 /* DessertListViewModel.swift */; };
+		46DD4BCC2BFFA0A100EF3C6A /* DessertMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46DD4BCB2BFFA0A100EF3C6A /* DessertMainView.swift */; };
+		46DD4BCE2BFFA1B000EF3C6A /* TopBarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46DD4BCD2BFFA1B000EF3C6A /* TopBarViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +62,8 @@
 		46D3393F2BFD32CA0095A930 /* DessertAPIModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DessertAPIModels.swift; sourceTree = "<group>"; };
 		46D339452BFDA8610095A930 /* DessertListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DessertListView.swift; sourceTree = "<group>"; };
 		46D339472BFDA8780095A930 /* DessertListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DessertListViewModel.swift; sourceTree = "<group>"; };
+		46DD4BCB2BFFA0A100EF3C6A /* DessertMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DessertMainView.swift; sourceTree = "<group>"; };
+		46DD4BCD2BFFA1B000EF3C6A /* TopBarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopBarViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +115,7 @@
 			isa = PBXGroup;
 			children = (
 				46D339112BFD25A20095A930 /* DessertChallengeApp.swift */,
+				46DD4BCB2BFFA0A100EF3C6A /* DessertMainView.swift */,
 				46D339452BFDA8610095A930 /* DessertListView.swift */,
 				46D339472BFDA8780095A930 /* DessertListViewModel.swift */,
 				4668524E2BFE7039007C9318 /* DessertListItemView.swift */,
@@ -120,6 +125,7 @@
 				46D3393F2BFD32CA0095A930 /* DessertAPIModels.swift */,
 				466852562BFEA4A6007C9318 /* MealLookupAPIModels.swift */,
 				46D3393B2BFD29950095A930 /* TopBarView.swift */,
+				46DD4BCD2BFFA1B000EF3C6A /* TopBarViewModel.swift */,
 				46D339152BFD25A30095A930 /* Assets.xcassets */,
 				46D339172BFD25A30095A930 /* Preview Content */,
 			);
@@ -285,8 +291,10 @@
 				4668524F2BFE7039007C9318 /* DessertListItemView.swift in Sources */,
 				466852552BFE8362007C9318 /* DessertDetailViewModel.swift in Sources */,
 				466852572BFEA4A6007C9318 /* MealLookupAPIModels.swift in Sources */,
+				46DD4BCE2BFFA1B000EF3C6A /* TopBarViewModel.swift in Sources */,
 				46D339402BFD32CA0095A930 /* DessertAPIModels.swift in Sources */,
 				46D339482BFDA8780095A930 /* DessertListViewModel.swift in Sources */,
+				46DD4BCC2BFFA0A100EF3C6A /* DessertMainView.swift in Sources */,
 				466852512BFE7063007C9318 /* DessertListItemViewModel.swift in Sources */,
 				46D3393C2BFD29950095A930 /* TopBarView.swift in Sources */,
 				46D339122BFD25A20095A930 /* DessertChallengeApp.swift in Sources */,

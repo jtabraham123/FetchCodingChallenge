@@ -9,29 +9,29 @@ import SwiftUI
 
 struct DessertListView: View {
     
-    @ObservedObject private var viewModel  = ViewModel()
+    
+    var topBarViewModel: TopBarView.ViewModel
+    
+    @StateObject private var viewModel  = ViewModel()
+    
     
     
     var body: some View {
-        VStack(spacing: 0) {
-            if (viewModel.showTopBar) {
-                TopBarView()
-                Spacer()
-            }
-            NavigationStack {
-                List(viewModel.desserts) { dessert in
-                    let dessertListItemViewModel = DessertListItemView.ViewModel(urlString: dessert.thumbnail, dessertTitle: dessert.name)
-                    let dessertDetailViewModel = DessertDetailView.ViewModel(id: dessert.id)
-                    let dessertDetailView = DessertDetailView(listItemViewModel: dessertListItemViewModel, viewModel: dessertDetailViewModel).onAppear {
-                        dessertDetailViewModel.fetchRecipe()
-                        viewModel.showTopBar = false
+        NavigationStack {
+            List(viewModel.desserts) { dessert in
+                let dessertListItemViewModel = DessertListItemView.ViewModel(urlString: dessert.thumbnail, dessertTitle: dessert.name)
+                let dessertDetailViewModel = DessertDetailView.ViewModel(id: dessert.id)
+                let dessertDetailView = DessertDetailView(listItemViewModel: dessertListItemViewModel, viewModel: dessertDetailViewModel).onAppear {
+                    dessertDetailViewModel.fetchRecipe()
+                    topBarViewModel.isVisible = false
+                    print("changing views")
+                }
+                NavigationLink(destination: dessertDetailView) {
+                    DessertListItemView(viewModel: dessertListItemViewModel)
                     }
-                    NavigationLink(destination: dessertDetailView) {
-                        DessertListItemView(viewModel: dessertListItemViewModel)
-                        }
-                    }.onAppear {
-                        viewModel.showTopBar = true
-                    }
+                }.onAppear {
+                    topBarViewModel.isVisible = true
+                    print("back to normal views")
                 }
             }
         }
@@ -40,5 +40,5 @@ struct DessertListView: View {
 
 
 #Preview {
-    DessertListView()
+    DessertListView(topBarViewModel: TopBarView.ViewModel())
 }

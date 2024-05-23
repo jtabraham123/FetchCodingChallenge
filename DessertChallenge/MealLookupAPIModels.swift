@@ -9,17 +9,8 @@ import Foundation
 
 
 // Data Models
-/*
-struct DessertRecipe: Codable, Identifiable {
-    let instructions: String
+struct DessertRecipe {
+    let instructions: [String]
     let ingredients: [String]
-    let thumbnail: String
-
-    enum CodingKeys: String, CodingKey {
-        case id = "idMeal"
-        case name = "strMeal"
-        case thumbnail = "strMealThumb"
-        
-    }
+    let measurements: [String]
 }
-*/

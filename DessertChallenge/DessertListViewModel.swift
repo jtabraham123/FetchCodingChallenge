@@ -14,7 +14,6 @@ extension DessertListView {
         
         private var cancellable: AnyCancellable?
         @Published var desserts: [Dessert] = []
-        @Published var showTopBar = true
         
         init() {
             getDesserts()

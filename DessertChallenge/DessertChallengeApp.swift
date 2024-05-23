@@ -11,7 +11,7 @@ import SwiftUI
 struct DessertChallengeApp: App {
     var body: some Scene {
         WindowGroup {
-            DessertListView()
+            DessertMainView()
         }
     }
 }

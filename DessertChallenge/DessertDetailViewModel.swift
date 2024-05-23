@@ -8,9 +8,10 @@
 import Foundation
 
 extension DessertDetailView {
+    
     class ViewModel: ObservableObject {
         let id: String
-        var urlString = "https://themealdb.com/api/json/v1/1/lookup.php?i="
+        @Published var dessertRecipe: DessertRecipe? = nil
         
         
         init(id: String) {
@@ -18,13 +19,14 @@ extension DessertDetailView {
         }
         
         func fetchRecipe() {
+            var urlString = "https://themealdb.com/api/json/v1/1/lookup.php?i="
             urlString.append(id)
             print(urlString)
+            
             guard let url = URL(string: urlString) else {
                 return
             }
             let task = URLSession.shared.dataTask(with: url) { data, response, error in
-                print("got a response")
                     if let error = error {
                         return
                     }
@@ -38,27 +40,40 @@ extension DessertDetailView {
                         
                     }
                 }
-            task.resume()
+            if (dessertRecipe == nil) {
+                task.resume()
+            }
         }
         
-        
+        // TODO: handle errors
         func decodeRecipe(data: Data) {
+            var measurements: [String] = []
+            var ingredients: [String] = []
+            var instructions: [String] = []
             do {
+                print(id)
                 if let jsonObject = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
                     if let meals = jsonObject["meals"] as? [[String: Any]] {
-                        if let instructions = meals[0]["strInstructions"] as? String {
-                            print("Instructions: \(instructions)")
+                        if let ins = meals[0]["strInstructions"] as? String {
+                            instructions = ins.components(separatedBy: "\r\n").filter { !$0.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty }
                         } else {
-                            print("Instructions not found")
+                            print("error parsing")
                         }
-                        for i in 1...20 {
+                        var moreIngredientsToParse = true
+                        var i = 1
+                        while (moreIngredientsToParse) {
                             if let ingredient = meals[0]["strIngredient\(i)"] as? String,
                                let measurement = meals[0]["strMeasure\(i)"] as? String {
                                 if !ingredient.isEmpty && !measurement.isEmpty {
                                     print("Ingredient \(i): \(ingredient), Measurement \(i): \(measurement)")
+                                    ingredients.append(ingredient)
+                                    measurements.append(measurement)
                                 }
                             }
-                            
+                            else {
+                                moreIngredientsToParse = false
+                            }
+                            i = i + 1
                         }
                     }
                     else {
@@ -71,6 +86,9 @@ extension DessertDetailView {
             }
             catch {
                 print("error parsing JSON")
+            }
+            DispatchQueue.main.async {
+                self.dessertRecipe = DessertRecipe(instructions: instructions, ingredients: ingredients, measurements: measurements)
             }
         }
     }
