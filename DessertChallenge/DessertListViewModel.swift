@@ -14,8 +14,15 @@ extension DessertListView {
         
         private var cancellable: AnyCancellable?
         @Published var desserts: [Dessert] = []
+        @Published var requestFailed = false
         
         init() {
+            getDesserts()
+        }
+        
+        func retryRequest() {
+            requestFailed = false
+            // Retry the network request when the button is tapped
             getDesserts()
         }
         
@@ -29,7 +36,12 @@ extension DessertListView {
                     .decode(type: DessertResponse.self, decoder: JSONDecoder())
                     .map { $0.meals }
                     .receive(on: DispatchQueue.main)
-                    .catch { _ in Just([]) }
+                    .catch { error -> Just<[Dessert]> in
+                            print("Network request failed with error: \(error)")
+                        self.requestFailed = true
+                            // Handle the error, e.g., show an alert or log the error
+                            return Just([])
+                        }
                     .assign(to: \.desserts, on: self)
 
         }

@@ -12,10 +12,19 @@ extension DessertDetailView {
     class ViewModel: ObservableObject {
         let id: String
         @Published var dessertRecipe: DessertRecipe? = nil
+        @Published var requestFailed = false
         
         
         init(id: String) {
             self.id = id
+        }
+        
+        func retryRequest() {
+            DispatchQueue.main.async {
+                self.requestFailed = false
+            }
+            // Retry the network request when the button is tapped
+            fetchRecipe()
         }
         
         func fetchRecipe() {
@@ -28,6 +37,9 @@ extension DessertDetailView {
             }
             let task = URLSession.shared.dataTask(with: url) { data, response, error in
                     if let error = error {
+                        DispatchQueue.main.async {
+                            self.requestFailed = true
+                        }
                         return
                     }
                     guard let data = data else {
@@ -57,7 +69,7 @@ extension DessertDetailView {
                         if let ins = meals[0]["strInstructions"] as? String {
                             instructions = ins.components(separatedBy: "\r\n").filter { !$0.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty }
                         } else {
-                            print("error parsing")
+                            print("error parsing instructions")
                         }
                         var moreIngredientsToParse = true
                         var i = 1
@@ -65,7 +77,6 @@ extension DessertDetailView {
                             if let ingredient = meals[0]["strIngredient\(i)"] as? String,
                                let measurement = meals[0]["strMeasure\(i)"] as? String {
                                 if !ingredient.isEmpty && !measurement.isEmpty {
-                                    print("Ingredient \(i): \(ingredient), Measurement \(i): \(measurement)")
                                     ingredients.append(ingredient)
                                     measurements.append(measurement)
                                 }
@@ -77,11 +88,11 @@ extension DessertDetailView {
                         }
                     }
                     else {
-                        print("error parsing2")
+                        print("error parsing meals")
                     }
                 }
                 else {
-                    print("error parsing1")
+                    print("error parsing JSON")
                 }
             }
             catch {

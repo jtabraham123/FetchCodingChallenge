@@ -17,25 +17,33 @@ struct DessertListView: View {
     
     
     var body: some View {
-        NavigationStack {
-            List(viewModel.desserts) { dessert in
-                let dessertListItemViewModel = DessertListItemView.ViewModel(urlString: dessert.thumbnail, dessertTitle: dessert.name)
-                let dessertDetailViewModel = DessertDetailView.ViewModel(id: dessert.id)
-                let dessertDetailView = DessertDetailView(listItemViewModel: dessertListItemViewModel, viewModel: dessertDetailViewModel).onAppear {
-                    dessertDetailViewModel.fetchRecipe()
-                    topBarViewModel.isVisible = false
-                    print("changing views")
-                }
-                NavigationLink(destination: dessertDetailView) {
-                    DessertListItemView(viewModel: dessertListItemViewModel)
+        if (!viewModel.requestFailed) {
+            NavigationStack {
+                List(viewModel.desserts) { dessert in
+                    let dessertListItemViewModel = DessertListItemView.ViewModel(urlString: dessert.thumbnail, dessertTitle: dessert.name)
+                    let dessertDetailViewModel = DessertDetailView.ViewModel(id: dessert.id)
+                    let dessertDetailView = DessertDetailView(listItemViewModel: dessertListItemViewModel, viewModel: dessertDetailViewModel).onAppear {
+                        dessertDetailViewModel.fetchRecipe()
+                        topBarViewModel.isVisible = false
+                    }
+                    NavigationLink(destination: dessertDetailView) {
+                        DessertListItemView(viewModel: dessertListItemViewModel)
                     }
                 }.onAppear {
                     topBarViewModel.isVisible = true
-                    print("back to normal views")
                 }
             }
         }
+        else {
+            Text("Network request failed: ")
+                .padding()
+            Button("Retry") {
+                viewModel.retryRequest()
+            }
+            Spacer()
+        }
     }
+}
 
 
 
