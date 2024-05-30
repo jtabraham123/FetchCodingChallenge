@@ -26,51 +26,49 @@ struct DessertDetailView: View {
         VStack {
             
             switch listItemViewModel.loadResult {
-                case .none:
-                    ProgressView().frame(width: 200, height: 150)
-                case .success(let image):
-                    Image(uiImage: image).resizable()
-                        .frame(width: 200, height: 150)
-                        .clipShape(Rectangle())
-                case .failure(let error):
-                    Text("Failed to load image: \(error.localizedDescription)")
-                        .frame(width: 200, height: 150)
+            case .none:
+                ProgressView().frame(width: 200, height: 150)
+            case .success(let image):
+                Image(uiImage: image).resizable()
+                    .frame(width: 200, height: 150)
+                    .clipShape(Rectangle())
+            case .failure(let error):
+                Text("Failed to load image: \(error.localizedDescription)")
+                    .frame(width: 200, height: 150)
             }
             
             Text(listItemViewModel.dessertTitle).foregroundColor(.black).font(.system(size: 24, weight: .bold, design: .default))
-            if (!viewModel.requestFailed) {
-                if (viewModel.dessertRecipe != nil) {
-                    ScrollView {
-                        Text("Ingredients: ").foregroundColor(.black).font(.system(size: 20, weight: .light, design: .default))
-                        LazyVGrid(columns: columns, spacing: 20) {
-                            ForEach(Array(viewModel.dessertRecipe!.ingredients.enumerated()), id: \.offset) { index, item in
-                                Text(viewModel.dessertRecipe!.measurements[index] + " " + item)
-                                    .frame(minWidth: 100, minHeight: 100)
-                                    .background(Color.blue)
-                                    .foregroundColor(.white)
-                                    .cornerRadius(8)
-                            }
+            
+            switch viewModel.dessertRecipeResult {
+            case .none:
+                ProgressView().frame(width: 200, height: 150)
+            case .success(let dessertRecipe):
+                ScrollView {
+                    Text("Ingredients: ").foregroundColor(.black).font(.system(size: 20, weight: .light, design: .default))
+                    LazyVGrid(columns: columns, spacing: 20) {
+                        ForEach(Array(dessertRecipe.ingredients.enumerated()), id: \.offset) { index, item in
+                            Text(viewModel.dessertRecipe!.measurements[index] + " " + item)
+                                .frame(minWidth: 100, minHeight: 100)
+                                .background(Color.blue)
+                                .foregroundColor(.white)
+                                .cornerRadius(8)
                         }
-                        .padding()
-                        Text("Instructions: ").foregroundColor(.black).font(.system(size: 20, weight: .light, design: .default))
-                        ForEach(Array(viewModel.dessertRecipe!.instructions.enumerated()), id: \.offset) { index, instruction in
-                            Spacer(minLength: 20.0)
-                            HStack {
-                                Text(String(index+1) +  ". " + instruction).fixedSize(horizontal: false, vertical: true).frame(alignment: .leading)
-                                Spacer()
-                            }
+                    }
+                    .padding()
+                    Text("Instructions: ").foregroundColor(.black).font(.system(size: 20, weight: .light, design: .default))
+                    ForEach(Array(dessertRecipe.instructions.enumerated()), id: \.offset) { index, instruction in
+                        Spacer(minLength: 20.0)
+                        HStack {
+                            Text(String(index+1) +  ". " + instruction).fixedSize(horizontal: false, vertical: true).frame(alignment: .leading)
+                            Spacer()
                         }
                     }
                 }
+            case .failure(let error):
+                Text("Failed to load Recipe: \(error.localizedDescription)")
+                    .frame(width: 200, height: 150)
             }
-            else {
-                Text("Network request failed: ").padding()
-                
-                Button("Retry") {
-                    viewModel.retryRequest()
-                }
-                Spacer()
-            }
+            
             
         }
     }
