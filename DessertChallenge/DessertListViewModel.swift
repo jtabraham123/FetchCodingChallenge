@@ -13,21 +13,17 @@ extension DessertListView {
     class ViewModel: ObservableObject {
         
         private var cancellable: AnyCancellable?
-        @Published var desserts: [Dessert] = []
-        @Published var requestFailed = false
+        @Published var dessertResult: Result<[Dessert], Error>? = nil
         
         init() {
             getDesserts()
         }
         
-        func retryRequest() {
-            requestFailed = false
-            // Retry the network request when the button is tapped
-            getDesserts()
-        }
-        
         func getDesserts() {
             guard let url = URL(string: "https://themealdb.com/api/json/v1/1/filter.php?c=Dessert") else {
+                DispatchQueue.main.async {
+                    self.dessertResult = .failure(NetworkError.invalidURL)
+                }
                 return
             }
             
@@ -35,14 +31,21 @@ extension DessertListView {
                     .map { $0.data }
                     .decode(type: DessertResponse.self, decoder: JSONDecoder())
                     .map { $0.meals.sorted { $0.name.localizedCaseInsensitiveCompare($1.name) == .orderedAscending } }
-                    .receive(on: DispatchQueue.main)
-                    .catch { error -> Just<[Dessert]> in
+                    .sink(receiveCompletion: { [weak self] completion in
+                        switch completion {
+                        case .failure(let error):
                             print("Network request failed with error: \(error)")
-                        self.requestFailed = true
-                            // Handle the error, e.g., show an alert or log the error
-                            return Just([])
+                            DispatchQueue.main.async {
+                                self?.dessertResult = .failure(error)
+                            }
+                        case .finished:
+                            break // Do nothing on success
                         }
-                    .assign(to: \.desserts, on: self)
+                    }, receiveValue: { [weak self] desserts in
+                        DispatchQueue.main.async {
+                            self?.dessertResult = .success(desserts)
+                        }
+                    })
 
         }
     }

@@ -22,9 +22,14 @@ struct DessertListView: View {
     
     
     var body: some View {
-        if (!viewModel.requestFailed) {
+        
+        switch viewModel.dessertResult {
+        case .none:
+            ProgressView().frame(width: 400, height: 400)
+            Spacer()
+        case .success(let desserts):
             NavigationStack {
-                List(viewModel.desserts) { dessert in
+                List(desserts) { dessert in
                     let dessertListItemViewModel = DessertListItemView.ViewModel(urlString: dessert.thumbnail, dessertTitle: dessert.name)
                     let dessertDetailViewModel = DessertDetailView.ViewModel(id: dessert.id)
                     let dessertDetailView = DessertDetailView(listItemViewModel: dessertListItemViewModel, viewModel: dessertDetailViewModel).onAppear {
@@ -38,14 +43,9 @@ struct DessertListView: View {
                     topBarViewModel.isVisible = true
                 }
             }
-        }
-        else {
-            Text("Network request failed: ")
-                .padding()
-            Button("Retry") {
-                viewModel.retryRequest()
-            }
-            Spacer()
+        case .failure(let error):
+            Text("Failed to load desserts: \(error.localizedDescription)")
+                .frame(width: 200, height: 200)
         }
     }
 }

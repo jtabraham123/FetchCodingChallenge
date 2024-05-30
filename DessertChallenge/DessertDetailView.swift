@@ -24,14 +24,19 @@ struct DessertDetailView: View {
     
     var body: some View {
         VStack {
-            if (listItemViewModel.loadedImage != nil) {
-                Image(uiImage: listItemViewModel.loadedImage!).resizable()
-                    .frame(width: 200, height: 150)
-                    .clipShape(Rectangle())
+            
+            switch listItemViewModel.loadResult {
+                case .none:
+                    ProgressView().frame(width: 200, height: 150)
+                case .success(let image):
+                    Image(uiImage: image).resizable()
+                        .frame(width: 200, height: 150)
+                        .clipShape(Rectangle())
+                case .failure(let error):
+                    Text("Failed to load image: \(error.localizedDescription)")
+                        .frame(width: 200, height: 150)
             }
-            else { //placeholder while loading in or if errors
-                ProgressView().frame(width: 200, height: 150)
-            }
+            
             Text(listItemViewModel.dessertTitle).foregroundColor(.black).font(.system(size: 24, weight: .bold, design: .default))
             if (!viewModel.requestFailed) {
                 if (viewModel.dessertRecipe != nil) {

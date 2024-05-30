@@ -15,17 +15,21 @@ struct DessertListItemView: View {
     
     var body: some View {
         HStack() {
-            if (viewModel.loadedImage != nil) {
-                Image(uiImage: viewModel.loadedImage!).resizable()
+            switch viewModel.loadResult {
+            case .none:
+                ProgressView().frame(width: 50, height: 50)
+            case .success(let image):
+                Image(uiImage: image).resizable()
                     .frame(width: 50, height: 50)
                     .clipShape(Rectangle())
-            }
-            else { //placeholder while loading in or if errors
-                ProgressView().frame(width: 50, height: 50)
+            case .failure(let error):
+                Text("Failed to load image: \(error.localizedDescription)")
+                    .frame(width: 50, height: 50)
             }
             Text(viewModel.dessertTitle).font(.headline)
         }
     }
+    
 }
 
 #Preview {

@@ -15,7 +15,8 @@ extension DessertListItemView {
     class ViewModel: ObservableObject {
         let url: URL?
         let dessertTitle: String
-        @Published var loadedImage: UIImage? = nil
+        @Published var loadResult: Result<UIImage, Error>? = nil
+        
         
         init(urlString: String, dessertTitle: String) {
             url = URL(string: urlString)
@@ -24,16 +25,31 @@ extension DessertListItemView {
         }
         
         func loadImage() {
-            if (url != nil) {
-                let task = URLSession.shared.dataTask(with: url!) { data, response, error in
-                    if let data = data, let uiImage = UIImage(data: data) {
-                        DispatchQueue.main.async {
-                            self.loadedImage = uiImage
-                        }
-                    }
+            guard let url = url else {
+                DispatchQueue.main.async {
+                    self.loadResult = .failure(NetworkError.invalidURL)
                 }
-                task.resume()
+                return
             }
+            let task = URLSession.shared.dataTask(with: url) { data, response, error in
+                if let error = error {
+                    DispatchQueue.main.async {
+                        self.loadResult = .failure(error)
+                    }
+                    return
+                }
+                guard let data = data, let uiImage = UIImage(data: data) else {
+                    DispatchQueue.main.async {
+                        self.loadResult = .failure(NetworkError.invalidData)
+                    }
+                    return
+                }
+
+                DispatchQueue.main.async {
+                    self.loadResult = .success(uiImage)
+                }
+            }
+            task.resume()
         }
     }
 }

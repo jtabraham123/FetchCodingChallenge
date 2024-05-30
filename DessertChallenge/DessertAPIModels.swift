@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 // Data Models
 struct Dessert: Codable, Identifiable {
