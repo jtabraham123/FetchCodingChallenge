@@ -12,23 +12,15 @@ extension DessertDetailView {
     /* DessertDetailViewModel makes the network request and decodes the json with its custom
      decoding function. I thought it was easier to just write the decoding function here than
      using combine framework like earlier
-    */
+     */
     class ViewModel: ObservableObject {
         let id: String
+        @Published var dessertRecipeResult: Result<DessertRecipe, Error>? = nil
         @Published var dessertRecipe: DessertRecipe? = nil
-        @Published var requestFailed = false
         
         
         init(id: String) {
             self.id = id
-        }
-        
-        func retryRequest() {
-            DispatchQueue.main.async {
-                self.requestFailed = false
-            }
-            // Retry the network request when the button is tapped
-            fetchRecipe()
         }
         
         func fetchRecipe() {
@@ -39,70 +31,62 @@ extension DessertDetailView {
                 return
             }
             let task = URLSession.shared.dataTask(with: url) { data, response, error in
-                    if let error = error {
-                        DispatchQueue.main.async {
-                            self.requestFailed = true
-                        }
-                        return
+                if let error = error {
+                    DispatchQueue.main.async {
+                        self.dessertRecipeResult = .failure(error)
                     }
-                    guard let data = data else {
-                        return
-                    }
-                    do {
-                     //   let dessertRecipes = try decodeDessertRecipes(from: data)
-                        self.decodeRecipe(data: data)
-                    } catch {
-                        
-                    }
+                    return
                 }
-            if (dessertRecipe == nil) {
-                task.resume()
+                guard let data = data else {
+                    DispatchQueue.main.async {
+                        self.dessertRecipeResult = .failure(NetworkError.invalidData)
+                    }
+                    return
+                }
+                do {
+                    //   let dessertRecipes = try decodeDessertRecipes(from: data)
+                    self.decodeRecipe(data: data)
+                }
             }
+            task.resume()
         }
         
-        // TODO: handle errors
         func decodeRecipe(data: Data) {
             var measurements: [String] = []
             var ingredients: [String] = []
             var instructions: [String] = []
             do {
-                if let jsonObject = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
-                    if let meals = jsonObject["meals"] as? [[String: Any]] {
-                        if let ins = meals[0]["strInstructions"] as? String {
-                            instructions = ins.components(separatedBy: "\r\n").filter { !$0.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty }
-                        } else {
-                            print("error parsing instructions")
-                        }
-                        var moreIngredientsToParse = true
-                        var i = 1
-                        while (moreIngredientsToParse) {
-                            if let ingredient = meals[0]["strIngredient\(i)"] as? String,
-                               let measurement = meals[0]["strMeasure\(i)"] as? String {
-                                if !ingredient.isEmpty && !measurement.isEmpty {
-                                    ingredients.append(ingredient)
-                                    measurements.append(measurement)
-                                }
-                            }
-                            else {
-                                moreIngredientsToParse = false
-                            }
-                            i = i + 1
-                        }
-                    }
-                    else {
-                        print("error parsing meals")
-                    }
+                guard let jsonObject = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
+                      let meals = jsonObject["meals"] as? [[String: Any]],
+                      let ins = meals.first?["strInstructions"] as? String else {
+                    throw NetworkError.invalidData
                 }
-                else {
-                    print("error parsing JSON")
+                
+                instructions = ins.components(separatedBy: "\r\n").filter { !$0.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty }
+                
+                var moreIngredientsToParse = true
+                var i = 1
+                while moreIngredientsToParse {
+                    if let ingredient = meals.first?["strIngredient\(i)"] as? String,
+                       let measurement = meals.first?["strMeasure\(i)"] as? String,
+                       !ingredient.isEmpty, !measurement.isEmpty {
+                        ingredients.append(ingredient)
+                        measurements.append(measurement)
+                    } else {
+                        moreIngredientsToParse = false
+                    }
+                    i += 1
                 }
-            }
-            catch {
-                print("error parsing JSON")
-            }
-            DispatchQueue.main.async {
-                self.dessertRecipe = DessertRecipe(instructions: instructions, ingredients: ingredients, measurements: measurements)
+                
+                DispatchQueue.main.async {
+                    self.dessertRecipe = DessertRecipe(instructions: instructions, ingredients: ingredients, measurements: measurements)
+                }
+            } catch {
+                DispatchQueue.main.async {
+                    self.dessertRecipeResult = .failure(error)
+                }
             }
         }
+
     }
 }
