@@ -14,10 +14,7 @@ extension DessertListView {
         
         private var cancellable: AnyCancellable?
         @Published var dessertResult: Result<[Dessert], Error>? = nil
-        
-        init() {
-            getDesserts()
-        }
+
         
         func getDesserts() {
             guard let url = URL(string: "https://themealdb.com/api/json/v1/1/filter.php?c=Dessert") else {

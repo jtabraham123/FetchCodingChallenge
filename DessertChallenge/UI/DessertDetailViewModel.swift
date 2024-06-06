@@ -14,14 +14,9 @@ extension DessertDetailView {
      using combine framework like earlier
      */
     class ViewModel: ObservableObject {
-        let id: String
+        var id: String = ""
         @Published var dessertRecipeResult: Result<DessertRecipe, Error>? = nil
         @Published var dessertRecipe: DessertRecipe? = nil
-        
-        
-        init(id: String) {
-            self.id = id
-        }
         
         func fetchRecipe() {
             var urlString = "https://themealdb.com/api/json/v1/1/lookup.php?i="

@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Swinject
 
 
 /* List View of desserts, contains clickable DessertListItemviews when
@@ -16,10 +17,15 @@ struct DessertListView: View {
     
     
     var topBarViewModel: TopBarView.ViewModel
+    @ObservedObject private var viewModel: ViewModel
+    let resolver: Resolver
     
-    @StateObject private var viewModel  = ViewModel()
-    
-    
+    init(topBarViewModel: TopBarView.ViewModel, viewModel: DessertListView.ViewModel, resolver: Resolver) {
+        self.topBarViewModel = topBarViewModel
+        self.resolver = resolver
+        self.viewModel = viewModel
+        self.viewModel.getDesserts()
+    }
     
     var body: some View {
         
@@ -30,8 +36,9 @@ struct DessertListView: View {
         case .success(let desserts):
             NavigationStack {
                 List(desserts) { dessert in
-                    let dessertListItemViewModel = DessertListItemView.ViewModel(urlString: dessert.thumbnail, dessertTitle: dessert.name)
-                    let dessertDetailViewModel = DessertDetailView.ViewModel(id: dessert.id)
+                    let dessertListItemViewModel = resolver.resolved(DessertListItemView.ViewModel.self)
+                    let hi = dessertListItemViewModel.setValues(stringUrl: dessert.thumbnail, dessertTitle: dessert.name)
+                    let dessertDetailViewModel = resolver.resolved(DessertDetailView.ViewModel.self)
                     let dessertDetailView = DessertDetailView(listItemViewModel: dessertListItemViewModel, viewModel: dessertDetailViewModel).onAppear {
                         dessertDetailViewModel.fetchRecipe()
                         topBarViewModel.isVisible = false
@@ -53,5 +60,5 @@ struct DessertListView: View {
 
 
 #Preview {
-    DessertListView(topBarViewModel: TopBarView.ViewModel())
+    DessertListView(topBarViewModel: TopBarView.ViewModel(), viewModel: DessertListView.ViewModel(), resolver: AppAssembler().resolver)
 }

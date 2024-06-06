@@ -13,16 +13,16 @@ import UIKit
 extension DessertListItemView {
     
     class ViewModel: ObservableObject {
-        let url: URL?
-        let dessertTitle: String
+        var url: URL?
+        var dessertTitle: String
         @Published var loadResult: Result<UIImage, Error>? = nil
         
         
-        init(urlString: String, dessertTitle: String) {
-            url = URL(string: urlString)
+        init(stringUrl: String?, dessertTitle: String?) {
+            self.url = URL(string: stringUrl)
             self.dessertTitle = dessertTitle
-            loadImage()
         }
+        
         
         func loadImage() {
             guard let url = url else {
