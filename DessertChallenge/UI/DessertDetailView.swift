@@ -47,7 +47,7 @@ struct DessertDetailView: View {
                     Text("Ingredients: ").foregroundColor(.black).font(.system(size: 20, weight: .light, design: .default))
                     LazyVGrid(columns: columns, spacing: 20) {
                         ForEach(Array(dessertRecipe.ingredients.enumerated()), id: \.offset) { index, item in
-                            Text(viewModel.dessertRecipe!.measurements[index] + " " + item)
+                            Text(dessertRecipe.ingredients[index] + " " + item)
                                 .frame(minWidth: 100, minHeight: 100)
                                 .background(Color.blue)
                                 .foregroundColor(.white)
@@ -76,6 +76,6 @@ struct DessertDetailView: View {
 
 
 #Preview {
-    DessertDetailView(listItemViewModel: DessertListItemView.ViewModel(urlString: "https://www.themealdb.com/images/media/meals/uryqru1511798039.jpg", dessertTitle: "White chocolate creme brulee"), viewModel: DessertDetailView.ViewModel(id: "52917"))
+    DessertDetailView(listItemViewModel: DessertListItemView.ViewModel(stringUrl: "https://www.themealdb.com/images/media/meals/uryqru1511798039.jpg", dessertTitle: "White chocolate creme brulee"), viewModel: DessertDetailView.ViewModel(id: "52917"))
 }
 

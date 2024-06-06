@@ -33,5 +33,5 @@ struct DessertListItemView: View {
 }
 
 #Preview {
-    DessertListItemView(viewModel: DessertListItemView.ViewModel(urlString: "https://www.themealdb.com/images/media/meals/uryqru1511798039.jpg", dessertTitle: "White chocolate creme brulee"))
+    DessertListItemView(viewModel: DessertListItemView.ViewModel(stringUrl: "https://www.themealdb.com/images/media/meals/uryqru1511798039.jpg", dessertTitle: "White chocolate creme brulee"))
 }

@@ -16,12 +16,15 @@ extension DessertDetailView {
     class ViewModel: ObservableObject {
         var id: String = ""
         @Published var dessertRecipeResult: Result<DessertRecipe, Error>? = nil
-        @Published var dessertRecipe: DessertRecipe? = nil
+        
+        init(id: String) {
+            self.id = id
+        }
         
         func fetchRecipe() {
             var urlString = "https://themealdb.com/api/json/v1/1/lookup.php?i="
             urlString.append(id)
-            
+            print(urlString)
             guard let url = URL(string: urlString) else {
                 return
             }
@@ -74,7 +77,7 @@ extension DessertDetailView {
                 }
                 
                 DispatchQueue.main.async {
-                    self.dessertRecipe = DessertRecipe(instructions: instructions, ingredients: ingredients, measurements: measurements)
+                    self.dessertRecipeResult = .success(DessertRecipe(instructions: instructions, ingredients: ingredients, measurements: measurements))
                 }
             } catch {
                 DispatchQueue.main.async {

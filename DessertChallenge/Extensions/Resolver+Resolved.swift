@@ -16,4 +16,11 @@ extension Resolver {
         }
         return service
     }
+    
+    func resolved<Service, Arg1>(_ serviceType: Service.Type, argument: Arg1) -> Service {
+        guard let service = resolve(serviceType, argument: argument) else {
+            fatalError("\(serviceType) is required for this app. Please register \(serviceType) in an Assembly.")
+        }
+        return service
+    }
 }

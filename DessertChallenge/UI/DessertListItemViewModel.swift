@@ -18,9 +18,10 @@ extension DessertListItemView {
         @Published var loadResult: Result<UIImage, Error>? = nil
         
         
-        init(stringUrl: String?, dessertTitle: String?) {
+        init(stringUrl: String, dessertTitle: String) {
             self.url = URL(string: stringUrl)
             self.dessertTitle = dessertTitle
+            self.loadImage()
         }
         
         

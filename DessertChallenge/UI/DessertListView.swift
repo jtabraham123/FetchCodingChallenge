@@ -36,11 +36,12 @@ struct DessertListView: View {
         case .success(let desserts):
             NavigationStack {
                 List(desserts) { dessert in
-                    let dessertListItemViewModel = resolver.resolved(DessertListItemView.ViewModel.self)
-                    let hi = dessertListItemViewModel.setValues(stringUrl: dessert.thumbnail, dessertTitle: dessert.name)
-                    let dessertDetailViewModel = resolver.resolved(DessertDetailView.ViewModel.self)
+                    let dessertListItemViewModel = resolver.resolved(DessertListItemView.ViewModel.self, argument:[dessert.thumbnail, dessert.name])
+                    let dessertDetailViewModel = resolver.resolved(DessertDetailView.ViewModel.self, argument: dessert.id)
+                    // TODO: navigation logic in view
                     let dessertDetailView = DessertDetailView(listItemViewModel: dessertListItemViewModel, viewModel: dessertDetailViewModel).onAppear {
                         dessertDetailViewModel.fetchRecipe()
+                        print("fetching recipe")
                         topBarViewModel.isVisible = false
                     }
                     NavigationLink(destination: dessertDetailView) {
