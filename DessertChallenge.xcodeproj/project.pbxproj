@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		463F33FE2C1260150024C722 /* DessertListService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 463F33FD2C1260150024C722 /* DessertListService.swift */; };
+		463F34002C1265DB0024C722 /* ServiceAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 463F33FF2C1265DB0024C722 /* ServiceAssembly.swift */; };
 		464DB3D52C112BC600D34454 /* AppAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 464DB3D42C112BC600D34454 /* AppAssembler.swift */; };
 		464DB3D82C112C6700D34454 /* Swinject in Frameworks */ = {isa = PBXBuildFile; productRef = 464DB3D72C112C6700D34454 /* Swinject */; };
 		464DB3DA2C112CB900D34454 /* ViewModelAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 464DB3D92C112CB900D34454 /* ViewModelAssembly.swift */; };
@@ -49,6 +51,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		463F33FD2C1260150024C722 /* DessertListService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DessertListService.swift; sourceTree = "<group>"; };
+		463F33FF2C1265DB0024C722 /* ServiceAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceAssembly.swift; sourceTree = "<group>"; };
 		464DB3D42C112BC600D34454 /* AppAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppAssembler.swift; sourceTree = "<group>"; };
 		464DB3D92C112CB900D34454 /* ViewModelAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelAssembly.swift; sourceTree = "<group>"; };
 		464DB3DC2C113B0A00D34454 /* Resolver+Resolved.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Resolver+Resolved.swift"; sourceTree = "<group>"; };
@@ -101,6 +105,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		463F33FC2C125FE70024C722 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				463F33FD2C1260150024C722 /* DessertListService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
 		464DB3CF2C112B3B00D34454 /* UI */ = {
 			isa = PBXGroup;
 			children = (
@@ -132,6 +144,7 @@
 			children = (
 				464DB3D42C112BC600D34454 /* AppAssembler.swift */,
 				464DB3D92C112CB900D34454 /* ViewModelAssembly.swift */,
+				463F33FF2C1265DB0024C722 /* ServiceAssembly.swift */,
 			);
 			path = Architecture;
 			sourceTree = "<group>";
@@ -167,6 +180,7 @@
 		46D339102BFD25A20095A930 /* DessertChallenge */ = {
 			isa = PBXGroup;
 			children = (
+				463F33FC2C125FE70024C722 /* Services */,
 				464DB3DB2C113AFA00D34454 /* Extensions */,
 				464DB3D32C112BB200D34454 /* Architecture */,
 				464DB3CF2C112B3B00D34454 /* UI */,
@@ -342,6 +356,7 @@
 				46D339462BFDA8610095A930 /* DessertListView.swift in Sources */,
 				4668524F2BFE7039007C9318 /* DessertListItemView.swift in Sources */,
 				466852552BFE8362007C9318 /* DessertDetailViewModel.swift in Sources */,
+				463F34002C1265DB0024C722 /* ServiceAssembly.swift in Sources */,
 				464DB3DD2C113B0A00D34454 /* Resolver+Resolved.swift in Sources */,
 				466852572BFEA4A6007C9318 /* MealLookupAPIModels.swift in Sources */,
 				46DD4BCE2BFFA1B000EF3C6A /* TopBarViewModel.swift in Sources */,
@@ -353,6 +368,7 @@
 				464DB3D52C112BC600D34454 /* AppAssembler.swift in Sources */,
 				46BCCEA12C08012A0005D3B6 /* NetworkError.swift in Sources */,
 				464DB3DA2C112CB900D34454 /* ViewModelAssembly.swift in Sources */,
+				463F33FE2C1260150024C722 /* DessertListService.swift in Sources */,
 				46D339122BFD25A20095A930 /* DessertChallengeApp.swift in Sources */,
 				466852532BFE7980007C9318 /* DessertDetailView.swift in Sources */,
 			);

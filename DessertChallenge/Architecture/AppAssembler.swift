@@ -15,6 +15,7 @@ class AppAssembler {
     
     init() {
         self.assembler = Assembler([
+            ServiceAssembly(),
             ViewModelAssembly()
         ])
     }

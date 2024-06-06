@@ -11,7 +11,7 @@ import Swinject
 class ViewModelAssembly: Assembly {
     func assemble(container: Container) {
         container.register(DessertListView.ViewModel.self) { r in
-            DessertListView.ViewModel()
+            DessertListView.ViewModel(dessertListService: r.resolved(DessertListService.self))
         }.inObjectScope(.transient)
         
         container.register(DessertListItemView.ViewModel.self) { (r, arguments:[String])  in

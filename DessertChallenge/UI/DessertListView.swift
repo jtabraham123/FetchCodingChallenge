@@ -61,5 +61,5 @@ struct DessertListView: View {
 
 
 #Preview {
-    DessertListView(topBarViewModel: TopBarView.ViewModel(), viewModel: DessertListView.ViewModel(), resolver: AppAssembler().resolver)
+    DessertListView(topBarViewModel: TopBarView.ViewModel(), viewModel: DessertListView.ViewModel(dessertListService: DessertListService()), resolver: AppAssembler().resolver)
 }
