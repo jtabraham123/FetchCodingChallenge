@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		463F33FE2C1260150024C722 /* DessertListService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 463F33FD2C1260150024C722 /* DessertListService.swift */; };
 		463F34002C1265DB0024C722 /* ServiceAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 463F33FF2C1265DB0024C722 /* ServiceAssembly.swift */; };
+		463F34022C1267FB0024C722 /* ImageLoadService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 463F34012C1267FB0024C722 /* ImageLoadService.swift */; };
 		464DB3D52C112BC600D34454 /* AppAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 464DB3D42C112BC600D34454 /* AppAssembler.swift */; };
 		464DB3D82C112C6700D34454 /* Swinject in Frameworks */ = {isa = PBXBuildFile; productRef = 464DB3D72C112C6700D34454 /* Swinject */; };
 		464DB3DA2C112CB900D34454 /* ViewModelAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 464DB3D92C112CB900D34454 /* ViewModelAssembly.swift */; };
@@ -53,6 +54,7 @@
 /* Begin PBXFileReference section */
 		463F33FD2C1260150024C722 /* DessertListService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DessertListService.swift; sourceTree = "<group>"; };
 		463F33FF2C1265DB0024C722 /* ServiceAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceAssembly.swift; sourceTree = "<group>"; };
+		463F34012C1267FB0024C722 /* ImageLoadService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoadService.swift; sourceTree = "<group>"; };
 		464DB3D42C112BC600D34454 /* AppAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppAssembler.swift; sourceTree = "<group>"; };
 		464DB3D92C112CB900D34454 /* ViewModelAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelAssembly.swift; sourceTree = "<group>"; };
 		464DB3DC2C113B0A00D34454 /* Resolver+Resolved.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Resolver+Resolved.swift"; sourceTree = "<group>"; };
@@ -109,6 +111,7 @@
 			isa = PBXGroup;
 			children = (
 				463F33FD2C1260150024C722 /* DessertListService.swift */,
+				463F34012C1267FB0024C722 /* ImageLoadService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -364,6 +367,7 @@
 				46D339482BFDA8780095A930 /* DessertListViewModel.swift in Sources */,
 				46DD4BCC2BFFA0A100EF3C6A /* DessertMainView.swift in Sources */,
 				466852512BFE7063007C9318 /* DessertListItemViewModel.swift in Sources */,
+				463F34022C1267FB0024C722 /* ImageLoadService.swift in Sources */,
 				46D3393C2BFD29950095A930 /* TopBarView.swift in Sources */,
 				464DB3D52C112BC600D34454 /* AppAssembler.swift in Sources */,
 				46BCCEA12C08012A0005D3B6 /* NetworkError.swift in Sources */,

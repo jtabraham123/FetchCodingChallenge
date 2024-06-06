@@ -16,41 +16,21 @@ extension DessertListItemView {
         var url: URL?
         var dessertTitle: String
         @Published var loadResult: Result<UIImage, Error>? = nil
+        private let imageLoadService: ImageLoadServiceProtocol
         
-        
-        init(stringUrl: String, dessertTitle: String) {
+        init(stringUrl: String, dessertTitle: String, imageLoadService: ImageLoadServiceProtocol) {
             self.url = URL(string: stringUrl)
             self.dessertTitle = dessertTitle
-            self.loadImage()
+            self.imageLoadService = imageLoadService
+            self.getImage()
         }
         
-        
-        func loadImage() {
-            guard let url = url else {
+        func getImage() {
+            imageLoadService.loadImage(url: self.url) { [weak self] result in
                 DispatchQueue.main.async {
-                    self.loadResult = .failure(NetworkError.invalidURL)
-                }
-                return
-            }
-            let task = URLSession.shared.dataTask(with: url) { data, response, error in
-                if let error = error {
-                    DispatchQueue.main.async {
-                        self.loadResult = .failure(error)
-                    }
-                    return
-                }
-                guard let data = data, let uiImage = UIImage(data: data) else {
-                    DispatchQueue.main.async {
-                        self.loadResult = .failure(NetworkError.invalidData)
-                    }
-                    return
-                }
-
-                DispatchQueue.main.async {
-                    self.loadResult = .success(uiImage)
+                    self?.loadResult = result
                 }
             }
-            task.resume()
         }
     }
 }
