@@ -76,6 +76,6 @@ struct DessertDetailView: View {
 
 
 #Preview {
-    DessertDetailView(listItemViewModel: DessertListItemView.ViewModel(stringUrl: "https://www.themealdb.com/images/media/meals/uryqru1511798039.jpg", dessertTitle: "White chocolate creme brulee"), viewModel: DessertDetailView.ViewModel(id: "52917"))
+    DessertDetailView(listItemViewModel: DessertListItemView.ViewModel(stringUrl: "https://www.themealdb.com/images/media/meals/uryqru1511798039.jpg", dessertTitle: "White chocolate creme brulee", imageLoadService: ImageLoadService()), viewModel: DessertDetailView.ViewModel(id: "52917"))
 }
 

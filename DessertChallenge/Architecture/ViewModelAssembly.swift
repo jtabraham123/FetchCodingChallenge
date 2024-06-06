@@ -20,7 +20,7 @@ class ViewModelAssembly: Assembly {
                 let dessertTitle = arguments.last else {
                 fatalError("Invalid arguments provided when resolving DessertListItemView.ViewModel.")
             }
-            return DessertListItemView.ViewModel(stringUrl: stringUrl, dessertTitle: dessertTitle)
+            return DessertListItemView.ViewModel(stringUrl: stringUrl, dessertTitle: dessertTitle, imageLoadService: r.resolved(ImageLoadService.self))
         }.inObjectScope(.transient)
         
         container.register(DessertDetailView.ViewModel.self) { (r, argument:String) in
