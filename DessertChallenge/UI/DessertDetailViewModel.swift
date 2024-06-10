@@ -27,11 +27,6 @@ extension DessertDetailView {
             dessertDetailService.fetchDessertDetails(idString: id) { [weak self] result in
                 DispatchQueue.main.async {
                     self?.dessertRecipeResult = result
-                    if case .success(let dessertRecipe) = result {
-                        print("Instructions: \(dessertRecipe.instructions)")
-                        print("Ingredients: \(dessertRecipe.ingredients)")
-                        print("Measurements: \(dessertRecipe.measurements)")
-                    }
                 }
             }
         }
