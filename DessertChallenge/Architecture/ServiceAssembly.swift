@@ -17,5 +17,9 @@ class ServiceAssembly: Assembly {
         container.register(ImageLoadService.self) { r in
           ImageLoadService()
         }.inObjectScope(.container)
+        
+        container.register(DessertDetailService.self) { r in
+          DessertDetailService()
+        }.inObjectScope(.container)
     }
 }

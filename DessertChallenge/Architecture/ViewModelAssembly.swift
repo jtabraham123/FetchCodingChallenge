@@ -24,7 +24,7 @@ class ViewModelAssembly: Assembly {
         }.inObjectScope(.transient)
         
         container.register(DessertDetailView.ViewModel.self) { (r, argument:String) in
-            DessertDetailView.ViewModel(id : argument)
+            DessertDetailView.ViewModel(id : argument, dessertDetailService: r.resolved(DessertDetailService.self))
         }.inObjectScope(.transient)
         
         container.register(TopBarView.ViewModel.self) { r in
