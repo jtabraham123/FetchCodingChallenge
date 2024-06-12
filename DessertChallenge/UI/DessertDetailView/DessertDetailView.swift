@@ -74,7 +74,7 @@ struct DessertDetailView: View {
                     Text("Failed to load Recipe: \(error.localizedDescription)")
                         .frame(width: 200, height: 150)
                     Button(action: {
-                        self.viewModel.getImage()
+                        self.viewModel.fetchRecipe()
                     }) {
                         RetryButtonView()
                     }
