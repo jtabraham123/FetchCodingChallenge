@@ -15,7 +15,6 @@
 		464DB3DA2C112CB900D34454 /* ViewModelAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 464DB3D92C112CB900D34454 /* ViewModelAssembly.swift */; };
 		464DB3DD2C113B0A00D34454 /* Resolver+Resolved.swift in Sources */ = {isa = PBXBuildFile; fileRef = 464DB3DC2C113B0A00D34454 /* Resolver+Resolved.swift */; };
 		465D29D72C1771DF00B26B5D /* DesssertDetailService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 465D29D62C1771DF00B26B5D /* DesssertDetailService.swift */; };
-		465D29DB2C179F7F00B26B5D /* DessertMainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 465D29DA2C179F7F00B26B5D /* DessertMainCoordinator.swift */; };
 		465D29DD2C17A04200B26B5D /* CoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 465D29DC2C17A04200B26B5D /* CoordinatorAssembly.swift */; };
 		465D29DF2C17A1AE00B26B5D /* DessertListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 465D29DE2C17A1AE00B26B5D /* DessertListCoordinator.swift */; };
 		465D29E12C18EACC00B26B5D /* ViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 465D29E02C18EACC00B26B5D /* ViewModelType.swift */; };
@@ -37,8 +36,7 @@
 		46D339402BFD32CA0095A930 /* DessertAPIModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46D3393F2BFD32CA0095A930 /* DessertAPIModels.swift */; };
 		46D339462BFDA8610095A930 /* DessertListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46D339452BFDA8610095A930 /* DessertListView.swift */; };
 		46D339482BFDA8780095A930 /* DessertListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46D339472BFDA8780095A930 /* DessertListViewModel.swift */; };
-		46DD4BCC2BFFA0A100EF3C6A /* DessertMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46DD4BCB2BFFA0A100EF3C6A /* DessertMainView.swift */; };
-		46DD4BCE2BFFA1B000EF3C6A /* TopBarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46DD4BCD2BFFA1B000EF3C6A /* TopBarViewModel.swift */; };
+		46DF6C0D2C1A6611008D8067 /* RetryButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46DF6C0C2C1A6611008D8067 /* RetryButtonView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,7 +64,6 @@
 		464DB3D92C112CB900D34454 /* ViewModelAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelAssembly.swift; sourceTree = "<group>"; };
 		464DB3DC2C113B0A00D34454 /* Resolver+Resolved.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Resolver+Resolved.swift"; sourceTree = "<group>"; };
 		465D29D62C1771DF00B26B5D /* DesssertDetailService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesssertDetailService.swift; sourceTree = "<group>"; };
-		465D29DA2C179F7F00B26B5D /* DessertMainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DessertMainCoordinator.swift; sourceTree = "<group>"; };
 		465D29DC2C17A04200B26B5D /* CoordinatorAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorAssembly.swift; sourceTree = "<group>"; };
 		465D29DE2C17A1AE00B26B5D /* DessertListCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DessertListCoordinator.swift; sourceTree = "<group>"; };
 		465D29E02C18EACC00B26B5D /* ViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelType.swift; sourceTree = "<group>"; };
@@ -91,8 +88,7 @@
 		46D3393F2BFD32CA0095A930 /* DessertAPIModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DessertAPIModels.swift; sourceTree = "<group>"; };
 		46D339452BFDA8610095A930 /* DessertListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DessertListView.swift; sourceTree = "<group>"; };
 		46D339472BFDA8780095A930 /* DessertListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DessertListViewModel.swift; sourceTree = "<group>"; };
-		46DD4BCB2BFFA0A100EF3C6A /* DessertMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DessertMainView.swift; sourceTree = "<group>"; };
-		46DD4BCD2BFFA1B000EF3C6A /* TopBarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopBarViewModel.swift; sourceTree = "<group>"; };
+		46DF6C0C2C1A6611008D8067 /* RetryButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetryButtonView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -134,11 +130,11 @@
 		464DB3CF2C112B3B00D34454 /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				465D29E22C18F97500B26B5D /* DessertMainView */,
 				465D29E32C18F98200B26B5D /* DessertListView */,
 				465D29E52C18F99500B26B5D /* DessertListItemView */,
 				465D29E62C18F9A100B26B5D /* DessertDetailView */,
 				465D29E72C18F9AC00B26B5D /* TopBarView */,
+				46DF6C0B2C1A65C3008D8067 /* RetryButtonView */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -174,15 +170,6 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		465D29E22C18F97500B26B5D /* DessertMainView */ = {
-			isa = PBXGroup;
-			children = (
-				46DD4BCB2BFFA0A100EF3C6A /* DessertMainView.swift */,
-				465D29DA2C179F7F00B26B5D /* DessertMainCoordinator.swift */,
-			);
-			path = DessertMainView;
-			sourceTree = "<group>";
-		};
 		465D29E32C18F98200B26B5D /* DessertListView */ = {
 			isa = PBXGroup;
 			children = (
@@ -215,7 +202,6 @@
 			isa = PBXGroup;
 			children = (
 				46D3393B2BFD29950095A930 /* TopBarView.swift */,
-				46DD4BCD2BFFA1B000EF3C6A /* TopBarViewModel.swift */,
 			);
 			path = TopBarView;
 			sourceTree = "<group>";
@@ -287,6 +273,14 @@
 				46D3392E2BFD25A30095A930 /* DessertChallengeUITestsLaunchTests.swift */,
 			);
 			path = DessertChallengeUITests;
+			sourceTree = "<group>";
+		};
+		46DF6C0B2C1A65C3008D8067 /* RetryButtonView */ = {
+			isa = PBXGroup;
+			children = (
+				46DF6C0C2C1A6611008D8067 /* RetryButtonView.swift */,
+			);
+			path = RetryButtonView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -433,11 +427,9 @@
 				464DB3DD2C113B0A00D34454 /* Resolver+Resolved.swift in Sources */,
 				466852572BFEA4A6007C9318 /* MealLookupAPIModels.swift in Sources */,
 				465D29EA2C19407000B26B5D /* InMemoryImageRepository.swift in Sources */,
-				46DD4BCE2BFFA1B000EF3C6A /* TopBarViewModel.swift in Sources */,
 				465D29EC2C19469C00B26B5D /* RepositoryAssembly.swift in Sources */,
 				46D339402BFD32CA0095A930 /* DessertAPIModels.swift in Sources */,
 				46D339482BFDA8780095A930 /* DessertListViewModel.swift in Sources */,
-				46DD4BCC2BFFA0A100EF3C6A /* DessertMainView.swift in Sources */,
 				466852512BFE7063007C9318 /* DessertListItemViewModel.swift in Sources */,
 				465D29D72C1771DF00B26B5D /* DesssertDetailService.swift in Sources */,
 				463F34022C1267FB0024C722 /* ImageLoadService.swift in Sources */,
@@ -447,8 +439,8 @@
 				46BCCEA12C08012A0005D3B6 /* NetworkError.swift in Sources */,
 				464DB3DA2C112CB900D34454 /* ViewModelAssembly.swift in Sources */,
 				463F33FE2C1260150024C722 /* DessertListService.swift in Sources */,
-				465D29DB2C179F7F00B26B5D /* DessertMainCoordinator.swift in Sources */,
 				46D339122BFD25A20095A930 /* DessertChallengeApp.swift in Sources */,
+				46DF6C0D2C1A6611008D8067 /* RetryButtonView.swift in Sources */,
 				465D29E12C18EACC00B26B5D /* ViewModelType.swift in Sources */,
 				466852532BFE7980007C9318 /* DessertDetailView.swift in Sources */,
 			);

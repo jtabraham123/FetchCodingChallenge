@@ -25,6 +25,8 @@ extension DessertDetailView {
             self.dessert = dessert
             self.dessertDetailService = dessertDetailService
             self.imageRepository = imageRepository
+            self.getImage()
+            self.fetchRecipe()
         }
         
         func getImage() {

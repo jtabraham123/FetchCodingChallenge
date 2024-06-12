@@ -13,7 +13,7 @@ private let appAssembler: AppAssembler = AppAssembler()
 struct DessertChallengeApp: App {
     var body: some Scene {
         WindowGroup {
-            DessertMainView(coordinator: appAssembler.resolver.resolved(DessertMainCoordinator.self))
+            DessertListView(dessertListCoordinator: appAssembler.resolver.resolved(DessertListCoordinator.self))
         }
     }
 }

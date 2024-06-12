@@ -12,10 +12,6 @@ import Swinject
 class CoordinatorAssembly: Assembly {
     func assemble(container: Container) {
         
-        container.register(DessertMainCoordinator.self) { r in
-            DessertMainCoordinator(resolver: r)
-        }.inObjectScope(.container)
-        
         container.register(DessertListCoordinator.self) { r in
             DessertListCoordinator(resolver: r)
         }.inObjectScope(.container)

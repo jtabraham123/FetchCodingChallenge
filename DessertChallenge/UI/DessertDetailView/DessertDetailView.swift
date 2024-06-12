@@ -31,8 +31,15 @@ struct DessertDetailView: View {
                     .frame(width: 200, height: 150)
                     .clipShape(Rectangle())
             case .failure(let error):
-                Text("Failed to load image: \(error.localizedDescription)")
-                    .frame(width: 200, height: 150)
+                VStack {
+                    Text("Failed to load image: \(error.localizedDescription)")
+                        .frame(width: 200, height: 100)
+                    Button(action: {
+                        self.viewModel.getImage()
+                    }) {
+                        RetryButtonView()
+                    }
+                }
             }
             
             Text(viewModel.dessert.name).foregroundColor(.black).font(.system(size: 24, weight: .bold, design: .default))
@@ -63,8 +70,15 @@ struct DessertDetailView: View {
                     }
                 }
             case .failure(let error):
-                Text("Failed to load Recipe: \(error.localizedDescription)")
-                    .frame(width: 200, height: 150)
+                VStack {
+                    Text("Failed to load Recipe: \(error.localizedDescription)")
+                        .frame(width: 200, height: 150)
+                    Button(action: {
+                        self.viewModel.getImage()
+                    }) {
+                        RetryButtonView()
+                    }
+                }
             }
             
             
@@ -72,9 +86,10 @@ struct DessertDetailView: View {
     }
 }
 
-/*
- #Preview {
- DessertDetailView(listItemViewModel: DessertListItemView.ViewModel(stringUrl: "https://www.themealdb.com/images/media/meals/uryqru1511798039.jpg", dessertTitle: "White chocolate creme brulee", imageLoadService: ImageLoadService()), viewModel: DessertDetailView.ViewModel(id: "52917", dessertDetailService: DessertDetailService()))
- }
- 
- */
+
+
+#Preview {
+    DessertDetailView(viewModel: AppAssembler().resolver.resolved(DessertDetailView.ViewModel.self, argument: Dessert(id: "fsfd", name: "adffd", thumbnail: "afdfd")))
+}
+
+

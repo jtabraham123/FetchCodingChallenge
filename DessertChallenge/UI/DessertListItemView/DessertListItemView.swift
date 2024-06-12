@@ -24,9 +24,18 @@ struct DessertListItemView: View {
                     Image(uiImage: image).resizable()
                         .frame(width: 50, height: 50)
                         .clipShape(Rectangle())
-                case .failure(let error):
-                    Text("Failed to load image: \(error.localizedDescription)")
-                        .frame(width: 50, height: 50)
+                case .failure(_):
+                    Button(action: {
+                        self.viewModel.getImage()
+                    }) {
+                        Image(systemName: "arrow.clockwise.circle")
+                            .font(.title)
+                            .foregroundColor(.blue)
+                            .padding()
+                            .background(Color.white)
+                            .clipShape(Rectangle())
+                            .frame(width: 50, height: 50)
+                    }
                 }
                 Text(viewModel.dessert.name).font(.headline).foregroundColor(.black)
             }
@@ -36,8 +45,7 @@ struct DessertListItemView: View {
 }
 
 /*
- 
- #Preview {
- DessertListItemView(viewModel: DessertListItemView.ViewModel(stringUrl: "https://www.themealdb.com/images/media/meals/uryqru1511798039.jpg", dessertTitle: "White chocolate creme brulee", imageLoadService: ImageLoadService()))
- }
- */
+#Preview {
+    DessertListItemView(viewModel: DessertListItemView.ViewModel(dessert: Dessert(id: "fdd", name: "fdf", thumbnail: "afasd"), imageRepository: AppAssembler().resolver.resolved(InMemoryImageRepository.self)))
+}
+*/

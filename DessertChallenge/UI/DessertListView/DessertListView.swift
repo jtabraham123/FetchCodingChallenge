@@ -15,27 +15,24 @@ import Swinject
  */
 struct DessertListView: View {
     
-    
-    var topBarViewModel: TopBarView.ViewModel
     @ObservedObject private var viewModel: ViewModel
     @ObservedObject var dessertListCoordinator: DessertListCoordinator
     
-    init(topBarViewModel: TopBarView.ViewModel, dessertListCoordinator: DessertListCoordinator) {
-        self.topBarViewModel = topBarViewModel
+    init(dessertListCoordinator: DessertListCoordinator) {
         self.dessertListCoordinator = dessertListCoordinator
         self.viewModel = dessertListCoordinator.dessertListViewModel
         self.viewModel.getDesserts()
     }
     
     var body: some View {
-        
         switch viewModel.dessertResult {
         case .none:
+            TopBarView()
             ProgressView().frame(width: 400, height: 400)
             Spacer()
         case .success(_):
-            // TODO: Fix this logic in view issue
             NavigationStack(path: self.$dessertListCoordinator.path) {
+                TopBarView()
                 List(dessertListCoordinator.dessertListItemViewModels) { listItemViewModel in
                     DessertListItemView(viewModel: listItemViewModel)
                 }
@@ -44,8 +41,17 @@ struct DessertListView: View {
                 }
             }
         case .failure(let error):
-            Text("Failed to load desserts: \(error.localizedDescription)")
-                .frame(width: 200, height: 200)
+            VStack {
+                TopBarView()
+                Text("Failed to load desserts: \(error.localizedDescription)")
+                    .frame(width: 200, height: 200)
+                Button(action: {
+                    self.viewModel.getDesserts()
+                }) {
+                    RetryButtonView()
+                }
+                Spacer()
+            }
         }
     }
 }
@@ -53,7 +59,7 @@ struct DessertListView: View {
 
 /*
  #Preview {
-     DessertListView(topBarViewModel: TopBarView.ViewModel(), viewModel: DessertListView.ViewModel(dessertListService: DessertListService()), resolver: AppAssembler().resolver)
+ DessertListView(topBarViewModel: TopBarView.ViewModel(), viewModel: DessertListView.ViewModel(dessertListService: DessertListService()), resolver: AppAssembler().resolver)
  }
-
+ 
  */

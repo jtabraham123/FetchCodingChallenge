@@ -12,8 +12,9 @@ import SwiftUI
 
 class DessertListCoordinator: ObservableObject {
     private let resolver: Resolver
-    var dessertListViewModel: DessertListView.ViewModel
+    let dessertListViewModel: DessertListView.ViewModel
     @Published var dessertListItemViewModels: [DessertListItemView.ViewModel] = []
+    var dessertDetailViewModels: [String : DessertDetailView.ViewModel] = [:]
     @Published var path = NavigationPath()
     
     
@@ -21,6 +22,7 @@ class DessertListCoordinator: ObservableObject {
         self.resolver = resolver
         self.dessertListViewModel = resolver.resolved(DessertListView.ViewModel.self)
         dessertListViewModel.addDelegate(delegate: self)
+        
     }
     
 }
@@ -42,11 +44,14 @@ extension DessertListCoordinator: DessertListItemViewModelDelegate {
     func didTapDessertItem(_ source: DessertListItemView.ViewModel) {
         // navigation logic
         // create viewmodel
-        let dessertDetailViewModel = self.resolver.resolved(DessertDetailView.ViewModel.self, argument:source.dessert)
-        dessertDetailViewModel.getImage()
-        dessertDetailViewModel.fetchRecipe()
-        // append view model to path
-        path.append(dessertDetailViewModel)
+        if let dessertDetailViewModel = dessertDetailViewModels[source.dessert.id] {
+            path.append(dessertDetailViewModel)
+        } else {
+            let dessertDetailViewModel = self.resolver.resolved(DessertDetailView.ViewModel.self, argument:source.dessert)
+            dessertDetailViewModels[source.dessert.id] = dessertDetailViewModel
+            // append view model to path
+            path.append(dessertDetailViewModel)
+        }
         
     }
 }

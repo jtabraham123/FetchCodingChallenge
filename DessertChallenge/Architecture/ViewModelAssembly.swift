@@ -22,8 +22,5 @@ class ViewModelAssembly: Assembly {
             return DessertDetailView.ViewModel(dessert: argument , dessertDetailService: r.resolved(DessertDetailService.self), imageRepository: r.resolved(InMemoryImageRepository.self))
         }.inObjectScope(.transient)
         
-        container.register(TopBarView.ViewModel.self) { r in
-            TopBarView.ViewModel()
-        }.inObjectScope(.transient)
     }
 }
