@@ -10,7 +10,7 @@ import Foundation
 
 extension TopBarView {
     
-    class ViewModel: ObservableObject {
+    class ViewModel: ViewModelType {
         @Published var isVisible = true
     }
 }

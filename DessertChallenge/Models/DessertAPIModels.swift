@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 // Data Models
-struct Dessert: Codable, Identifiable {
+struct Dessert: Codable, Identifiable, Hashable {
     let id: String
     let name: String
     let thumbnail: String

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 extension DessertDetailView {
     
@@ -13,18 +14,29 @@ extension DessertDetailView {
      decoding function. I thought it was easier to just write the decoding function here than
      using combine framework like earlier
      */
-    class ViewModel: ObservableObject {
-        var id: String = ""
+    class ViewModel: ViewModelType {
+        var dessert: Dessert
+        var imageRepository: ImageRepository
         @Published var dessertRecipeResult: Result<DessertRecipe, Error>? = nil
+        @Published var imageResult: Result<UIImage, Error>? = nil
         private let dessertDetailService: DessertDetailService
         
-        init(id: String, dessertDetailService: DessertDetailService) {
-            self.id = id
+        init(dessert: Dessert, dessertDetailService: DessertDetailService, imageRepository: ImageRepository) {
+            self.dessert = dessert
             self.dessertDetailService = dessertDetailService
+            self.imageRepository = imageRepository
+        }
+        
+        func getImage() {
+            imageRepository.findImage(forKey: dessert.id, imageUrl: URL(string: dessert.thumbnail)) { [weak self] result in
+                DispatchQueue.main.async {
+                    self?.imageResult = result
+                }
+            }
         }
         
         func fetchRecipe() {
-            dessertDetailService.fetchDessertDetails(idString: id) { [weak self] result in
+            dessertDetailService.fetchDessertDetails(idString: dessert.id) { [weak self] result in
                 DispatchQueue.main.async {
                     self?.dessertRecipeResult = result
                 }

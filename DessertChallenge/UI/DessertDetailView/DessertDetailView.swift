@@ -13,8 +13,6 @@ struct DessertDetailView: View {
      if the network request fails, there is an error screen that allows you to retry
      */
     
-    @ObservedObject var listItemViewModel: DessertListItemView.ViewModel
-    
     @ObservedObject var viewModel: ViewModel // DessertDetailView view model
     
     let columns: [GridItem] = [
@@ -25,7 +23,7 @@ struct DessertDetailView: View {
     var body: some View {
         VStack {
             
-            switch listItemViewModel.loadResult {
+            switch viewModel.imageResult {
             case .none:
                 ProgressView().frame(width: 200, height: 150)
             case .success(let image):
@@ -37,7 +35,7 @@ struct DessertDetailView: View {
                     .frame(width: 200, height: 150)
             }
             
-            Text(listItemViewModel.dessertTitle).foregroundColor(.black).font(.system(size: 24, weight: .bold, design: .default))
+            Text(viewModel.dessert.name).foregroundColor(.black).font(.system(size: 24, weight: .bold, design: .default))
             
             switch viewModel.dessertRecipeResult {
             case .none:
@@ -74,8 +72,9 @@ struct DessertDetailView: View {
     }
 }
 
-
-#Preview {
-    DessertDetailView(listItemViewModel: DessertListItemView.ViewModel(stringUrl: "https://www.themealdb.com/images/media/meals/uryqru1511798039.jpg", dessertTitle: "White chocolate creme brulee", imageLoadService: ImageLoadService()), viewModel: DessertDetailView.ViewModel(id: "52917", dessertDetailService: DessertDetailService()))
-}
-
+/*
+ #Preview {
+ DessertDetailView(listItemViewModel: DessertListItemView.ViewModel(stringUrl: "https://www.themealdb.com/images/media/meals/uryqru1511798039.jpg", dessertTitle: "White chocolate creme brulee", imageLoadService: ImageLoadService()), viewModel: DessertDetailView.ViewModel(id: "52917", dessertDetailService: DessertDetailService()))
+ }
+ 
+ */

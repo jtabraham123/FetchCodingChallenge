@@ -15,7 +15,9 @@ class AppAssembler {
     
     init() {
         self.assembler = Assembler([
+            CoordinatorAssembly(),
             ServiceAssembly(),
+            RepositoryAssembly(),
             ViewModelAssembly()
         ])
     }

@@ -14,17 +14,12 @@ class ViewModelAssembly: Assembly {
             DessertListView.ViewModel(dessertListService: r.resolved(DessertListService.self))
         }.inObjectScope(.transient)
         
-        container.register(DessertListItemView.ViewModel.self) { (r, arguments:[String])  in
-            guard arguments.count == 2,
-                let stringUrl = arguments.first,
-                let dessertTitle = arguments.last else {
-                fatalError("Invalid arguments provided when resolving DessertListItemView.ViewModel.")
-            }
-            return DessertListItemView.ViewModel(stringUrl: stringUrl, dessertTitle: dessertTitle, imageLoadService: r.resolved(ImageLoadService.self))
+        container.register(DessertListItemView.ViewModel.self) { (r, argument:Dessert)  in
+            return DessertListItemView.ViewModel(dessert: argument, imageRepository: r.resolved(InMemoryImageRepository.self))
         }.inObjectScope(.transient)
         
-        container.register(DessertDetailView.ViewModel.self) { (r, argument:String) in
-            DessertDetailView.ViewModel(id : argument, dessertDetailService: r.resolved(DessertDetailService.self))
+        container.register(DessertDetailView.ViewModel.self) { (r, argument: Dessert) in
+            return DessertDetailView.ViewModel(dessert: argument , dessertDetailService: r.resolved(DessertDetailService.self), imageRepository: r.resolved(InMemoryImageRepository.self))
         }.inObjectScope(.transient)
         
         container.register(TopBarView.ViewModel.self) { r in
