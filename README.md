@@ -6,7 +6,7 @@ This coding challenge repo has 5 views: DessertMainView, DessertListView, Desser
 
 
 ## System Architecture
-
+Note: arrows point in the direction of dependencies, the data flows the opposite direction for the most part
 <a href="https://www.figma.com/file/N7S0U9JGKEXbFLYUqsjmWW/DessertChallengeArchitecture?node-id=0-1&t=om8l8utkUD7ZHipl-1">
   <img src="FigmaDessertChallengeArch.png" alt="System Architecture" style="width:10000px;height:auto;">
 </a>
