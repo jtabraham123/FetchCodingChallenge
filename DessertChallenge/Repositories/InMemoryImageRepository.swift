@@ -17,7 +17,7 @@ protocol ImageRepository {
 }
 
 class InMemoryImageRepository: ImageRepository {
-    private var imageCache: [String: Result<UIImage, Error>] = [:]
+    private var imageCache: [String: UIImage] = [:]
     private let imageLoadService: ImageLoadServiceProtocol
     
     init(imageLoadService: ImageLoadServiceProtocol) {
@@ -27,16 +27,21 @@ class InMemoryImageRepository: ImageRepository {
     
     func findImage(forKey key: String, imageUrl: URL?, completion: @escaping (Result<UIImage, Error>) -> Void) {
         // Check if the image is already in the cache
-        if let cachedImageResult = imageCache[key] {
-            completion(cachedImageResult)
+        if let cachedImage = imageCache[key] {
+            completion(.success(cachedImage))
             return
         }
         // otherwise fetch from the network
         else {
             imageLoadService.loadImage(url: imageUrl) { [weak self] result in
                 // add result to image cache, then call completion
-                self?.imageCache[key] = result
-                completion(result)
+                switch result {
+                case .success(let image):
+                    self?.imageCache[key] = image
+                    completion(.success(image))
+                case .failure(let error):
+                    completion(.failure(error))
+                }
             }
         }
         
