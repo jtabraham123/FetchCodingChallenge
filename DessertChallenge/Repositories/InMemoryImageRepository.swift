@@ -15,6 +15,9 @@ protocol ImageRepository {
     func findImage(forKey key: String, imageUrl: URL?, completion: @escaping (Result<UIImage, Error>) -> Void)
 }
 
+
+// In memory image repository stores image from imageLoadService, was created so that two viewmodels (dessertListItemViewModel and DessertDetailViewModel) could share same image data
+
 class InMemoryImageRepository: ImageRepository {
     private var imageCache: [String: UIImage] = [:]
     private let imageLoadService: ImageLoadServiceProtocol

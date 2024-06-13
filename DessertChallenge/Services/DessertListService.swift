@@ -12,6 +12,7 @@ protocol DessertListServiceProtocol {
     func fetchDesserts(completion: @escaping (Result<[Dessert], Error>) -> Void)
 }
 
+// Loads dessert options from themealdb.com
 class DessertListService: DessertListServiceProtocol {
     private var cancellable: AnyCancellable?
 
