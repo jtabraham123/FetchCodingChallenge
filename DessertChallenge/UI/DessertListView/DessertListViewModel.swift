@@ -31,7 +31,13 @@ extension DessertListView {
             self.delegate = delegate
         }
         
-        func getDesserts() {
+        func getDesserts(retry: Bool) {
+            // make sure to set result to nil for progress view to come back on hitting retry
+            if (retry) {
+                DispatchQueue.main.async {
+                    self.dessertResult = nil
+                }
+            }
             dessertListService.fetchDesserts { [weak self] result in
                 if case .success(let desserts) = result {
                     // if successful, create the viewmodels in the coordinator

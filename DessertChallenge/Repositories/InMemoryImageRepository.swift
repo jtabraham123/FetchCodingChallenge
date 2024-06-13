@@ -24,6 +24,7 @@ class InMemoryImageRepository: ImageRepository {
         self.imageLoadService = imageLoadService
     }
     
+    
     func findImage(forKey key: String, imageUrl: URL?, completion: @escaping (Result<UIImage, Error>) -> Void) {
         // Check if the image is already in the cache
         if let cachedImageResult = imageCache[key] {

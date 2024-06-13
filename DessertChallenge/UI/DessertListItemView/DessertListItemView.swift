@@ -26,7 +26,7 @@ struct DessertListItemView: View {
                         .clipShape(Rectangle())
                 case .failure(_):
                     Button(action: {
-                        self.viewModel.getImage()
+                        self.viewModel.getImage(retry: true)
                     }) {
                         Image(systemName: "arrow.clockwise.circle")
                             .font(.title)

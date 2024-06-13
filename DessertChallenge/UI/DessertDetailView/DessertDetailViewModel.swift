@@ -25,11 +25,16 @@ extension DessertDetailView {
             self.dessert = dessert
             self.dessertDetailService = dessertDetailService
             self.imageRepository = imageRepository
-            self.getImage()
-            self.fetchRecipe()
+            self.getImage(retry: false)
+            self.fetchRecipe(retry: false)
         }
         
-        func getImage() {
+        func getImage(retry: Bool) {
+            if (retry) {
+                DispatchQueue.main.async {
+                    self.imageResult = nil
+                }
+            }
             imageRepository.findImage(forKey: dessert.id, imageUrl: URL(string: dessert.thumbnail)) { [weak self] result in
                 DispatchQueue.main.async {
                     self?.imageResult = result
@@ -37,7 +42,13 @@ extension DessertDetailView {
             }
         }
         
-        func fetchRecipe() {
+        func fetchRecipe(retry: Bool) {
+            if (retry) {
+                DispatchQueue.main.async {
+                    self.dessertRecipeResult = nil
+                }
+            }
+            
             dessertDetailService.fetchDessertDetails(idString: dessert.id) { [weak self] result in
                 DispatchQueue.main.async {
                     self?.dessertRecipeResult = result

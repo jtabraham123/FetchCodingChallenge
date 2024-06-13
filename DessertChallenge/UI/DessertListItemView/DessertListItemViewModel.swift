@@ -29,7 +29,7 @@ extension DessertListItemView {
         init(dessert:Dessert, imageRepository: ImageRepository) {
             self.dessert = dessert
             self.imageRepository = imageRepository
-            self.getImage()
+            self.getImage(retry: false)
         }
         
         func addDelegate(delegate: DessertListItemViewModelDelegate) {
@@ -40,7 +40,12 @@ extension DessertListItemView {
             self.delegate?.didTapDessertItem(self)
         }
         
-        func getImage() {
+        func getImage(retry: Bool) {
+            if (retry) {
+                DispatchQueue.main.async {
+                    self.loadResult = nil
+                }
+            }
             imageRepository.findImage(forKey: dessert.id, imageUrl: URL(string: dessert.thumbnail)) { [weak self] result in
                 DispatchQueue.main.async {
                     self?.loadResult = result

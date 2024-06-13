@@ -21,7 +21,7 @@ struct DessertListView: View {
     init(dessertListCoordinator: DessertListCoordinator) {
         self.dessertListCoordinator = dessertListCoordinator
         self.viewModel = dessertListCoordinator.dessertListViewModel
-        self.viewModel.getDesserts()
+        self.viewModel.getDesserts(retry: false)
     }
     
     var body: some View {
@@ -46,7 +46,7 @@ struct DessertListView: View {
                 Text("Failed to load desserts: \(error.localizedDescription)")
                     .frame(width: 200, height: 200)
                 Button(action: {
-                    self.viewModel.getDesserts()
+                    self.viewModel.getDesserts(retry: true)
                 }) {
                     RetryButtonView()
                 }
