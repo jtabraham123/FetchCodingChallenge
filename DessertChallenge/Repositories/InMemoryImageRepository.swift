@@ -11,7 +11,6 @@ import Foundation
 import UIKit
 
 
-// TODO: Change to result type
 protocol ImageRepository {
     func findImage(forKey key: String, imageUrl: URL?, completion: @escaping (Result<UIImage, Error>) -> Void)
 }
