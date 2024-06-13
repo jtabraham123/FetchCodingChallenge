@@ -8,6 +8,7 @@
 import Foundation
 import Swinject
 
+// extension class to make resolving with swinject easier
 extension Resolver {
     @inlinable
     func resolved<Service>(_ serviceType: Service.Type) -> Service {

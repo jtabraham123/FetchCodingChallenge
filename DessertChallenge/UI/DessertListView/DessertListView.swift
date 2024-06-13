@@ -9,9 +9,9 @@ import SwiftUI
 import Swinject
 
 
-/* List View of desserts, contains clickable DessertListItemviews when
+/* Main view: List View of desserts, contains clickable DessertListItemviews when
  the network request is successful, otherwise it shows an error screen
- with a button to retry the request
+ with a RetryButtonView to retry the request
  */
 struct DessertListView: View {
     

@@ -8,14 +8,13 @@
 import Foundation
 import UIKit
 
-// Loads image from the url and sets title of dessert
 
 
 protocol DessertListItemViewModelDelegate: AnyObject {
     func didTapDessertItem(_ source: DessertListItemView.ViewModel)
 }
 
-
+// DessertListItemView.ViewModel publishes the result of the image loading from the imageLoadService/imageRepository and contains the dessert model for data presentation
 extension DessertListItemView {
     
     class ViewModel: ViewModelType {

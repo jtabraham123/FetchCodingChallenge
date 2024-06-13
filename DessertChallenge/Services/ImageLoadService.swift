@@ -12,7 +12,7 @@ import UIKit
 protocol ImageLoadServiceProtocol {
     func loadImage(url: URL?, completion: @escaping (Result<UIImage, Error>) -> Void)
 }
-
+// loads images using the dessert thumbnail url
 class ImageLoadService: ImageLoadServiceProtocol {
     
     func loadImage(url: URL?, completion: @escaping (Result<UIImage, Error>) -> Void) {

@@ -8,6 +8,7 @@
 import Foundation
 import Swinject
 
+// swinject app assembler, contains resolver for initial coordinator injection
 class AppAssembler {
     private let assembler: Assembler
     

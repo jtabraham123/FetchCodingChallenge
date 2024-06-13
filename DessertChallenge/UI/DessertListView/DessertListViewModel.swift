@@ -9,12 +9,11 @@ import Foundation
 
 
 
-// DessertListViewModel makes the api request for dessert items upon initialization
 
 protocol DessertListViewModelDelegate: AnyObject {
     func didRecieveDesserts(_ desserts: [Dessert])
 }
-
+// DessertListView.ViewModel publishes result of dessertListService Network call so the UI can update
 extension DessertListView {
     class ViewModel: ViewModelType {
         

@@ -13,6 +13,7 @@ protocol DessertDetailServiceProtocol {
     func fetchDessertDetails(idString: String, completion: @escaping (Result<DessertRecipe, Error>) -> Void)
 }
 
+// loads recipe json from themealdb and decodes dessert recipe details (ingredients, measurements, and instructions)
 class DessertDetailService: DessertDetailServiceProtocol {
     
     func fetchDessertDetails(idString: String, completion: @escaping (Result<DessertRecipe, Error>) -> Void) {

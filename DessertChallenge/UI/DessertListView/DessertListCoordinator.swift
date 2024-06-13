@@ -9,7 +9,7 @@ import Foundation
 import Swinject
 import SwiftUI
 
-
+// coordinator: Instantiates viewmodels and handles navigation through appending to NavigationPath and delegate pattern
 class DessertListCoordinator: ObservableObject {
     private let resolver: Resolver
     let dessertListViewModel: DessertListView.ViewModel

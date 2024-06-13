@@ -10,9 +10,7 @@ import UIKit
 
 extension DessertDetailView {
     
-    /* DessertDetailViewModel makes the network request and decodes the json with its custom
-     decoding function. I thought it was easier to just write the decoding function here than
-     using combine framework like earlier
+    /* DessertDetailViewModel has both imageRepository and dessertDetailService to load in the dessert image and to load in the dessert recipe, it also contains the dessert model for presenting dessert data
      */
     class ViewModel: ViewModelType {
         var dessert: Dessert

@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-// top bar view, shows top bar when not in dessertDetailView
+// top bar view, shows top bar
 struct TopBarView: View {
     
     var body: some View {
