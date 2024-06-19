@@ -1,4 +1,4 @@
-## Fetch Coding Challenge
+## Dessert Recipe Viewer
 ![Demo](https://github.com/jtabraham123/FetchCodingChallenge/blob/master/RPReplay_Final1716498481.gif)
 
 ## Summary
