@@ -39,15 +39,11 @@ class InMemoryImageRepository: ImageRepository {
             imagePublishers.sendValueUpdate(forKey: key, imageResult: nil)
         }
         // if the imageResult exists in the cache send that
-        /*
         if let imageResult = imageResultCache[key] {
-            if let publisher = specificImagePublishers[key] {
-                publisher.send(imageResult)
-            }
+            imagePublishers.sendValueUpdate(forKey: key, imageResult: imageResult)
         }
-         */
-        // else use the service to make the network call
         else {
+            // else use the service to make the network call
             imageLoadService.loadImage(url: imageUrl) { [weak self] result in
                 DispatchQueue.main.async {
                     self?.imageResultCache[key] = result
@@ -55,7 +51,6 @@ class InMemoryImageRepository: ImageRepository {
                 }
             }
         }
-        
     }
     
     func publishCurrentValueInCache(forKey key: String, publisher: PassthroughSubject<Result<UIImage, Error>?, Never>) {
