@@ -6,47 +6,66 @@
 //
 
 import Foundation
+import Combine
 
 
 import UIKit
 
 
 protocol ImageRepository {
-    func findImage(forKey key: String, imageUrl: URL?, completion: @escaping (Result<UIImage, Error>) -> Void)
+    func findImage(forKey key: String, imageUrl: URL?, retry: Bool)
 }
 
 
 // In memory image repository stores image from imageLoadService, was created so that two viewmodels (dessertListItemViewModel and DessertDetailViewModel) could share same image data
 
 class InMemoryImageRepository: ImageRepository {
-    private var imageCache: [String: UIImage] = [:]
+    var imageResultCache: [String: Result<UIImage, Error>] = [:]
     private let imageLoadService: ImageLoadServiceProtocol
+    var imagePublishers = ImagePublishers()
     
     init(imageLoadService: ImageLoadServiceProtocol) {
         self.imageLoadService = imageLoadService
     }
     
     
-    func findImage(forKey key: String, imageUrl: URL?, completion: @escaping (Result<UIImage, Error>) -> Void) {
-        // Check if the image is already in the cache
-        if let cachedImage = imageCache[key] {
-            completion(.success(cachedImage))
-            return
+    
+    func findImage(forKey key: String, imageUrl: URL?, retry: Bool) {
+        
+        // first if its a retry then we reset image cache to nil
+        if (retry) {
+            // set to nil first then make network call
+            imageResultCache[key] = nil
+            imagePublishers.sendValueUpdate(forKey: key, imageResult: nil)
         }
-        // otherwise fetch from the network
+        // if the imageResult exists in the cache send that
+        /*
+        if let imageResult = imageResultCache[key] {
+            if let publisher = specificImagePublishers[key] {
+                publisher.send(imageResult)
+            }
+        }
+         */
+        // else use the service to make the network call
         else {
             imageLoadService.loadImage(url: imageUrl) { [weak self] result in
-                // add result to image cache, then call completion
-                switch result {
-                case .success(let image):
-                    self?.imageCache[key] = image
-                    completion(.success(image))
-                case .failure(let error):
-                    completion(.failure(error))
+                DispatchQueue.main.async {
+                    self?.imageResultCache[key] = result
+                    self?.imagePublishers.sendValueUpdate(forKey: key, imageResult: result)
                 }
             }
         }
         
+    }
+    
+    func publishCurrentValueInCache(forKey key: String, publisher: PassthroughSubject<Result<UIImage, Error>?, Never>) {
+        publisher.send(imageResultCache[key])
+    }
+    
+    func publisher(forKey key: String) -> PassthroughSubject<Result<UIImage, Error>?, Never> {
+        let publisher = imagePublishers.newPublisher(forKey: key)
+        // Return the publisher, erasing its type
+        return publisher
     }
 }
 

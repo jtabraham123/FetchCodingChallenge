@@ -7,6 +7,8 @@
 
 import Foundation
 import UIKit
+import Combine
+import SwiftUI
 
 
 
@@ -20,15 +22,28 @@ extension DessertListItemView {
     class ViewModel: ViewModelType {
         var dessert: Dessert
         @Published var loadResult: Result<UIImage, Error>? = nil
-        private let imageRepository: ImageRepository
+        private var imageRepository: InMemoryImageRepository
+        private var cancellables = Set<AnyCancellable>()
         
         
         private weak var delegate: DessertListItemViewModelDelegate?
         
-        init(dessert:Dessert, imageRepository: ImageRepository) {
+        init(dessert:Dessert, imageRepository: InMemoryImageRepository) {
             self.dessert = dessert
             self.imageRepository = imageRepository
+            self.subscribeToImageResult()
             self.getImage(retry: false)
+        }
+        
+        func subscribeToImageResult() {
+            let publisher = imageRepository.publisher(forKey: dessert.id)
+            publisher.sink { [weak self] result in
+                DispatchQueue.main.async {
+                    self?.loadResult = result
+                }
+            }
+            .store(in: &cancellables)
+            imageRepository.publishCurrentValueInCache(forKey: dessert.id, publisher: publisher)
         }
         
         func addDelegate(delegate: DessertListItemViewModelDelegate) {
@@ -40,16 +55,7 @@ extension DessertListItemView {
         }
         
         func getImage(retry: Bool) {
-            if (retry) {
-                DispatchQueue.main.async {
-                    self.loadResult = nil
-                }
-            }
-            imageRepository.findImage(forKey: dessert.id, imageUrl: URL(string: dessert.thumbnail)) { [weak self] result in
-                DispatchQueue.main.async {
-                    self?.loadResult = result
-                }
-            }
+            imageRepository.findImage(forKey: dessert.id, imageUrl: URL(string: dessert.thumbnail), retry: retry)
         }
     }
 }

@@ -7,6 +7,8 @@
 
 import Foundation
 import UIKit
+import SwiftUI
+import Combine
 
 extension DessertDetailView {
     
@@ -14,30 +16,33 @@ extension DessertDetailView {
      */
     class ViewModel: ViewModelType {
         var dessert: Dessert
-        var imageRepository: ImageRepository
+        var imageRepository: InMemoryImageRepository
         @Published var dessertRecipeResult: Result<DessertRecipe, Error>? = nil
         @Published var imageResult: Result<UIImage, Error>? = nil
         private let dessertDetailService: DessertDetailService
+        private var cancellables = Set<AnyCancellable>()
         
-        init(dessert: Dessert, dessertDetailService: DessertDetailService, imageRepository: ImageRepository) {
+        init(dessert: Dessert, dessertDetailService: DessertDetailService, imageRepository: InMemoryImageRepository) {
             self.dessert = dessert
             self.dessertDetailService = dessertDetailService
             self.imageRepository = imageRepository
-            self.getImage(retry: false)
+            self.subscribeToImageResult()
             self.fetchRecipe(retry: false)
         }
         
-        func getImage(retry: Bool) {
-            if (retry) {
-                DispatchQueue.main.async {
-                    self.imageResult = nil
-                }
-            }
-            imageRepository.findImage(forKey: dessert.id, imageUrl: URL(string: dessert.thumbnail)) { [weak self] result in
+        func subscribeToImageResult() {
+            let publisher = imageRepository.publisher(forKey: dessert.id)
+            publisher.sink { [weak self] result in
                 DispatchQueue.main.async {
                     self?.imageResult = result
                 }
             }
+            .store(in: &cancellables)
+            imageRepository.publishCurrentValueInCache(forKey: dessert.id, publisher: publisher)
+        }
+        
+        func getImage(retry: Bool) {
+            imageRepository.findImage(forKey: dessert.id, imageUrl: URL(string: dessert.thumbnail), retry: retry)
         }
         
         func fetchRecipe(retry: Bool) {
