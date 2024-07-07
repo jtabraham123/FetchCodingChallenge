@@ -51,8 +51,8 @@ struct DessertDetailView: View {
                 ScrollView {
                     Text("Ingredients: ").foregroundColor(.black).font(.system(size: 20, weight: .light, design: .default))
                     LazyVGrid(columns: columns, spacing: 20) {
-                        ForEach(Array(dessertRecipe.ingredients.enumerated()), id: \.offset) { index, item in
-                            Text(dessertRecipe.measurements[index] + " " + item)
+                        ForEach(viewModel.ingredientsText, id: \.self) { ingredient in
+                            Text(ingredient)
                                 .frame(minWidth: 100, minHeight: 100)
                                 .background(Color.blue)
                                 .foregroundColor(.white)
@@ -61,10 +61,10 @@ struct DessertDetailView: View {
                     }
                     .padding()
                     Text("Instructions: ").foregroundColor(.black).font(.system(size: 20, weight: .light, design: .default))
-                    ForEach(Array(dessertRecipe.instructions.enumerated()), id: \.offset) { index, instruction in
+                    ForEach(viewModel.instructionsText, id: \.self) { instruction in
                         Spacer(minLength: 20.0)
                         HStack {
-                            Text(String(index+1) +  ". " + instruction).fixedSize(horizontal: false, vertical: true).frame(alignment: .leading)
+                            Text(instruction).fixedSize(horizontal: false, vertical: true).frame(alignment: .leading)
                             Spacer()
                         }
                     }

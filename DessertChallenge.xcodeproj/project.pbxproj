@@ -20,6 +20,7 @@
 		465D29E12C18EACC00B26B5D /* ViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 465D29E02C18EACC00B26B5D /* ViewModelType.swift */; };
 		465D29EA2C19407000B26B5D /* InMemoryImageRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 465D29E92C19407000B26B5D /* InMemoryImageRepository.swift */; };
 		465D29EC2C19469C00B26B5D /* RepositoryAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 465D29EB2C19469C00B26B5D /* RepositoryAssembly.swift */; };
+		465D82482C3A29590085AC1B /* TransformObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 465D82472C3A29590085AC1B /* TransformObjects.swift */; };
 		4668524F2BFE7039007C9318 /* DessertListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4668524E2BFE7039007C9318 /* DessertListItemView.swift */; };
 		466852512BFE7063007C9318 /* DessertListItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 466852502BFE7063007C9318 /* DessertListItemViewModel.swift */; };
 		466852532BFE7980007C9318 /* DessertDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 466852522BFE7980007C9318 /* DessertDetailView.swift */; };
@@ -70,6 +71,7 @@
 		465D29E02C18EACC00B26B5D /* ViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelType.swift; sourceTree = "<group>"; };
 		465D29E92C19407000B26B5D /* InMemoryImageRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InMemoryImageRepository.swift; sourceTree = "<group>"; };
 		465D29EB2C19469C00B26B5D /* RepositoryAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryAssembly.swift; sourceTree = "<group>"; };
+		465D82472C3A29590085AC1B /* TransformObjects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransformObjects.swift; sourceTree = "<group>"; };
 		4668524E2BFE7039007C9318 /* DessertListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DessertListItemView.swift; sourceTree = "<group>"; };
 		466852502BFE7063007C9318 /* DessertListItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DessertListItemViewModel.swift; sourceTree = "<group>"; };
 		466852522BFE7980007C9318 /* DessertDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DessertDetailView.swift; sourceTree = "<group>"; };
@@ -217,6 +219,14 @@
 			path = Repositories;
 			sourceTree = "<group>";
 		};
+		465D82462C3A290C0085AC1B /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				465D82472C3A29590085AC1B /* TransformObjects.swift */,
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
 		46D339052BFD25A20095A930 = {
 			isa = PBXGroup;
 			children = (
@@ -240,6 +250,7 @@
 		46D339102BFD25A20095A930 /* DessertChallenge */ = {
 			isa = PBXGroup;
 			children = (
+				465D82462C3A290C0085AC1B /* Domain */,
 				465D29E82C19403300B26B5D /* Repositories */,
 				463F33FC2C125FE70024C722 /* Services */,
 				464DB3DB2C113AFA00D34454 /* Extensions */,
@@ -429,6 +440,7 @@
 				463F34002C1265DB0024C722 /* ServiceAssembly.swift in Sources */,
 				464DB3DD2C113B0A00D34454 /* Resolver+Resolved.swift in Sources */,
 				466852572BFEA4A6007C9318 /* MealLookupAPIModels.swift in Sources */,
+				465D82482C3A29590085AC1B /* TransformObjects.swift in Sources */,
 				465D29EA2C19407000B26B5D /* InMemoryImageRepository.swift in Sources */,
 				465D29EC2C19469C00B26B5D /* RepositoryAssembly.swift in Sources */,
 				46D339402BFD32CA0095A930 /* DessertAPIModels.swift in Sources */,

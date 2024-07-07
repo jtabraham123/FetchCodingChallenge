@@ -19,6 +19,8 @@ extension DessertDetailView {
         var imageRepository: InMemoryImageRepository
         @Published var dessertRecipeResult: Result<DessertRecipe, Error>? = nil
         @Published var imageResult: Result<UIImage, Error>? = nil
+        @Published var ingredientsText: [String] = []
+        @Published var instructionsText: [String] = []
         private let dessertDetailService: DessertDetailService
         private var cancellables = Set<AnyCancellable>()
         
@@ -55,6 +57,10 @@ extension DessertDetailView {
             dessertDetailService.fetchDessertDetails(idString: dessert.id) { [weak self] result in
                 DispatchQueue.main.async {
                     self?.dessertRecipeResult = result
+                    if case .success(let dessertRecipe) = result {
+                        self?.ingredientsText = dessertRecipe.formattedIngredients()
+                        self?.instructionsText = dessertRecipe.formattedInstructions()
+                    }
                 }
             }
         }
