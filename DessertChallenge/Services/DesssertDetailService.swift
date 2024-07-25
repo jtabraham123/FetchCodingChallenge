@@ -54,7 +54,6 @@ class DessertDetailService: DessertDetailServiceProtocol {
             }
             
             instructions = ins.components(separatedBy: "\r\n").filter { !$0.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty }
-            
             var moreIngredientsToParse = true
             var i = 1
             while moreIngredientsToParse {

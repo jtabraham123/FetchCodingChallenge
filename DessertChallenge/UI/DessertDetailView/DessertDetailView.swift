@@ -51,7 +51,7 @@ struct DessertDetailView: View {
                 ScrollView {
                     Text("Ingredients: ").foregroundColor(.black).font(.system(size: 20, weight: .light, design: .default))
                     LazyVGrid(columns: columns, spacing: 20) {
-                        ForEach(viewModel.ingredientsText, id: \.self) { ingredient in
+                        ForEach(Array(viewModel.ingredientsText.enumerated()), id: \.offset) { index, ingredient in
                             Text(ingredient)
                                 .frame(minWidth: 100, minHeight: 100)
                                 .background(Color.blue)
