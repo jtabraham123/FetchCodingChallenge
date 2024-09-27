@@ -25,14 +25,13 @@ struct DessertListView: View {
     }
     
     var body: some View {
+        TopBarView()
         switch viewModel.dessertResult {
         case .none:
-            TopBarView()
             ProgressView().frame(width: 400, height: 400)
             Spacer()
         case .success(_):
             NavigationStack(path: self.$dessertListCoordinator.path) {
-                TopBarView()
                 List(dessertListCoordinator.dessertListItemViewModels) { listItemViewModel in
                     DessertListItemView(viewModel: listItemViewModel)
                 }
@@ -42,7 +41,6 @@ struct DessertListView: View {
             }
         case .failure(let error):
             VStack {
-                TopBarView()
                 Text("Failed to load desserts: \(error.localizedDescription)")
                     .frame(width: 200, height: 200)
                 Button(action: {
